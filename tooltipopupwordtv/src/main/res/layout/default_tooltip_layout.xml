@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout5"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_dialog"
+    android:backgroundTint="@color/gray_dark_dialog"
+    android:paddingBottom="@dimen/space_10dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="@dimen/space_12dp"
+        android:background="@drawable/border_dialog"
+        android:backgroundTint="@color/gray_dark_dialog"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Title" />
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="@dimen/space_20dp"
+        android:layout_height="@dimen/space_20dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="@dimen/space_12dp"
+        android:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/title"
+        app:srcCompat="@drawable/icon_close" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_14dp"
+        android:layout_marginTop="@dimen/space_10dp"
+        android:layout_marginEnd="@dimen/space_14dp"
+        android:gravity="center"
+        android:textColor="@color/gray_translation_dialog"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        tools:text="@tools:sample/lorem" />
+</androidx.constraintlayout.widget.ConstraintLayout>
