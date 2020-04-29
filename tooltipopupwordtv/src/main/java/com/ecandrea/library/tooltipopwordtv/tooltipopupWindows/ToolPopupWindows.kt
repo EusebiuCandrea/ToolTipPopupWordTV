@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
 import com.ecandrea.library.tooltipopwordtv.R
+import com.ecandrea.library.tooltipopwordtv.hide
 import com.ecandrea.library.tooltipopwordtv.utils.ScreenSizeUtils.getLocationOnScreen
 import kotlinx.android.synthetic.main.default_tooltip_layout.view.*
 import kotlinx.android.synthetic.main.dialog_tooltip.view.*
@@ -26,22 +27,23 @@ class ToolPopupWindows(private val context: Context) {
 
     private fun initToolTip() {
         val inflater: LayoutInflater =
-            context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         contentView = inflater.inflate(R.layout.dialog_tooltip, null)
 
-        tipWindow.width = (getWithWindow().x * 0.9).toInt()
-        tipWindow.height = LinearLayout.LayoutParams.WRAP_CONTENT
-
-        tipWindow.isOutsideTouchable = true
-        tipWindow.isTouchable = true
-        tipWindow.isFocusable = true
-        tipWindow.setBackgroundDrawable(BitmapDrawable())
-        tipWindow.animationStyle = R.style.DialogScale
-        tipWindow.contentView = contentView
-        tipWindow.windowLayoutType = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG
+        with(tipWindow) {
+            width = (getWidthWindow().x * 0.9).toInt()
+            height = LinearLayout.LayoutParams.WRAP_CONTENT
+            isOutsideTouchable = true
+            isTouchable = true
+            isFocusable = true
+            setBackgroundDrawable(BitmapDrawable())
+            animationStyle = R.style.DialogScale
+            contentView = contentView
+            windowLayoutType = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG
+        }
     }
 
-    private fun getWithWindow(): Point {
+    private fun getWidthWindow(): Point {
         val size = Point()
         val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display = windowManager.defaultDisplay
@@ -67,20 +69,39 @@ class ToolPopupWindows(private val context: Context) {
         contentView.description.text = description
     }
 
-    fun showToolTip(anchorView: TextView, wordSelected: String, lineNumber: Int, width: Int) {
+    fun customArrowAnchor() {
+        with(contentView.arrowAnchor) {
+
+        }
+    }
+
+    fun addCustomLayout(layout: Int): View? {
+        contentView.defaultLayout.hide()
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val viewInflated = inflater.inflate(layout, null)
+        contentView.tooltipContent.addView(viewInflated)
+
+        return viewInflated
+    }
+
+    fun showToolTipAtLocation(
+            anchorView: TextView,
+            wordSelected: String,
+            lineNumber: Int,
+            width: Int
+    ) {
 
         val location = getLocationOnScreen(anchorView, context)
         val anchorRect = Rect(
-            location.x,
-            location.y,
-            location.x + anchorView.width,
-            location.y + anchorView.height
+                location.x, location.y,
+                location.x + anchorView.width,
+                location.y + anchorView.height
         )
         val heightOfLine = anchorView.lineHeight - space
         val positionY = anchorRect.top + (lineNumber * heightOfLine)
 
         val arrowParams = contentView.arrowAnchor.layoutParams as LinearLayout.LayoutParams
-        val differenceOfWidth = (getWithWindow().x - tipWindow.width) / 2
+        val differenceOfWidth = (getWidthWindow().x - tipWindow.width) / 2
 
         arrowParams.leftMargin = anchorRect.left + width - differenceOfWidth
 

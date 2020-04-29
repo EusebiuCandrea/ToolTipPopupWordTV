@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="WordSelectTextView">
+    <declare-styleable name="SelectableWordTextView">
         <attr name="highlightColor" format="reference|color" />
         <attr name="highlightText" format="reference|string" />
         <attr name="selectedColor" format="reference|color" />

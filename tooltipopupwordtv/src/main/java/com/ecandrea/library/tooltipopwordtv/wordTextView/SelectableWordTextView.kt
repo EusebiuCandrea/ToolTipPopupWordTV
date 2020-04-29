@@ -21,7 +21,7 @@ import com.ecandrea.library.tooltipopwordtv.R
 import com.ecandrea.library.tooltipopwordtv.tooltipopupWindows.ToolPopupWindows
 import com.ecandrea.library.tooltipopwordtv.utils.WordUtils
 
-class WordSelectTextView : AppCompatTextView {
+class SelectableWordTextView : AppCompatTextView {
 
     private var tooltip = ToolPopupWindows(context)
     private var charSequence: CharSequence = ""
@@ -44,8 +44,8 @@ class WordSelectTextView : AppCompatTextView {
             defStyleAttr: Int
     ) : super(context, attrs, defStyleAttr) {
 
-        context.obtainStyledAttributes(attrs, R.styleable.WordSelectTextView).apply {
-            getInt(R.styleable.WordSelectTextView_language, 0)
+        context.obtainStyledAttributes(attrs, R.styleable.SelectableWordTextView).apply {
+            getInt(R.styleable.SelectableWordTextView_language, 0)
         }.also {
             it.recycle()
         }
@@ -106,7 +106,7 @@ class WordSelectTextView : AppCompatTextView {
                 tv.selectionEnd,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-        super@WordSelectTextView.setText(spannableString, bufferType)
+        super@SelectableWordTextView.setText(spannableString, bufferType)
 
     }
 
@@ -123,7 +123,7 @@ class WordSelectTextView : AppCompatTextView {
 
     private fun dismissSelected() {
         spannableString!!.removeSpan(underlineSpan)
-        super@WordSelectTextView.setText(spannableString, bufferType)
+        super@SelectableWordTextView.setText(spannableString, bufferType)
     }
 
     private val clickableSpan: ClickableSpan
@@ -143,7 +143,7 @@ class WordSelectTextView : AppCompatTextView {
                         val lineNumber = tv.layout.getLineForOffset(startIndex)
                         val leftSize = getWordLeftSize(tv, it, lineNumber, startIndex)
 
-                        tooltip.showToolTip(tv, it, lineNumber + 1, leftSize)
+                        tooltip.showToolTipAtLocation(tv, it, lineNumber + 1, leftSize)
                         initListeners()
                     }
                 }
@@ -164,7 +164,7 @@ class WordSelectTextView : AppCompatTextView {
         return leftWords.width() + selectedWord.width() / 2
     }
 
-     fun setDescription(description:String){
+    fun setDescription(description: String) {
         tooltip.setDescription(description)
     }
 }
