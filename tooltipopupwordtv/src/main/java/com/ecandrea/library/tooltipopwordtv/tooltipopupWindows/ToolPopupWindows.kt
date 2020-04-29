@@ -40,9 +40,10 @@ class ToolPopupWindows(private val context: Context) {
             isFocusable = true
             setBackgroundDrawable(BitmapDrawable())
             animationStyle = R.style.DialogScale
-            contentView = contentView
             windowLayoutType = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG
         }
+
+        tipWindow.contentView = contentView
     }
 
     private fun getWidthWindow(): Point {
