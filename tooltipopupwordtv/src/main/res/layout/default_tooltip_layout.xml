@@ -42,7 +42,6 @@
         android:layout_marginStart="@dimen/space_14dp"
         android:layout_marginTop="@dimen/space_10dp"
         android:layout_marginEnd="@dimen/space_14dp"
-        android:gravity="center"
         android:textColor="@color/gray_translation_dialog"
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@id/title"

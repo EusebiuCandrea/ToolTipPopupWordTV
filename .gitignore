@@ -39,3 +39,7 @@ local.properties
 .Trashes
 ehthumbs.db
 Thumbs.db
+<<<<<<< HEAD
+=======
+.idea/*
+>>>>>>> a7ce44e7084e9622bdb40cc857ff88b4ba4b7f49

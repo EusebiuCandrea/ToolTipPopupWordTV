@@ -13,6 +13,8 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import com.ecandrea.library.tooltipopwordtv.R
 import com.ecandrea.library.tooltipopwordtv.hide
+import com.ecandrea.library.tooltipopwordtv.listeners.OnToolTipDismissListener
+import com.ecandrea.library.tooltipopwordtv.utils.Constants
 import com.ecandrea.library.tooltipopwordtv.utils.ScreenSizeUtils.getLocationOnScreen
 import kotlinx.android.synthetic.main.default_tooltip_layout.view.*
 import kotlinx.android.synthetic.main.dialog_tooltip.view.*
@@ -112,8 +114,16 @@ class ToolPopupWindows(private val context: Context) {
 
     }
 
+    class ToolTipBuilder() {
+        var textColor: Int = Constants.NO_INT_VALUE
+        var backgroundColor: Int = Constants.NO_INT_VALUE
+        var customLayout: Int = Constants.NO_INT_VALUE
+        var isOutsideTouchouble: Boolean = true
+        var autoDismissDuration: Long = Constants.NO_INT_VALUE.toLong()
+        var onToolTipDismiss: OnToolTipDismissListener? = null
+    }
+
     companion object {
         const val space = 5
     }
-
 }
