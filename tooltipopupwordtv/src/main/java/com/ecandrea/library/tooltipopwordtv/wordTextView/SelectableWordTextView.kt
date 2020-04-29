@@ -18,8 +18,17 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import com.ecandrea.library.tooltipopwordtv.R
+import com.ecandrea.library.tooltipopwordtv.listeners.OnSelectedWordListener
 import com.ecandrea.library.tooltipopwordtv.tooltipopupWindows.ToolPopupWindows
+import com.ecandrea.library.tooltipopwordtv.utils.Constants
 import com.ecandrea.library.tooltipopwordtv.utils.WordUtils
+
+@DslMarker
+annotation class SelectableWordBuilderDsl
+
+@SelectableWordBuilderDsl
+inline fun createSelectableWord(context: Context, block: SelectableWordTextView.SelectableWordBuilder.() -> Unit) =
+        SelectableWordTextView.SelectableWordBuilder(context).apply(block).build()
 
 class SelectableWordTextView : AppCompatTextView {
 
@@ -30,7 +39,7 @@ class SelectableWordTextView : AppCompatTextView {
     private var underlineSpan: UnderlineSpan? = null
     private var languageType = 0
 
-    constructor(context: Context?) : super(context)
+    constructor(context: Context, builder: SelectableWordBuilder) : super(context)
 
     constructor(context: Context?, attrs: AttributeSet?) : super(
             context,
@@ -166,5 +175,20 @@ class SelectableWordTextView : AppCompatTextView {
 
     fun setDescription(description: String) {
         tooltip.setDescription(description)
+    }
+
+    @SelectableWordBuilderDsl
+    class SelectableWordBuilder(private val context: Context) {
+        var text: String = Constants.NO_TEXT
+        var underlineSpan: Boolean = false
+        var selectedWordListener: OnSelectedWordListener? = null
+
+        fun setText(text: String): SelectableWordBuilder = apply { this.text = text }
+
+        fun setUnderlineSpan(underline: Boolean): SelectableWordBuilder = apply { this.underlineSpan = underline }
+
+        fun setSelectedWordListener(listener: OnSelectedWordListener): SelectableWordBuilder = apply { this.selectedWordListener = listener }
+
+        fun build(): SelectableWordTextView = SelectableWordTextView(context, this)
     }
 }

@@ -1,6 +1,8 @@
 package com.ecandrea.library.tooltipopwordtv.model
 
-class WordInfo {
-    var start = 0
-    var end = 0
-}
+import com.ecandrea.library.tooltipopwordtv.utils.Constants
+
+class WordInfo(
+        var start: Int = Constants.NO_INT_VALUE,
+        var end: Int = Constants.NO_INT_VALUE
+)
