@@ -36,15 +36,15 @@
         app:srcCompat="@drawable/icon_close" />
 
     <TextView
-        android:id="@+id/warning"
+        android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/space_14dp"
         android:layout_marginTop="@dimen/space_10dp"
         android:layout_marginEnd="@dimen/space_14dp"
         android:gravity="center"
-        android:text="This is an example of description"
         android:textColor="@color/gray_translation_dialog"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        app:layout_constraintTop_toBottomOf="@id/title"
+        tools:text="@tools:sample/lorem" />
 </androidx.constraintlayout.widget.ConstraintLayout>

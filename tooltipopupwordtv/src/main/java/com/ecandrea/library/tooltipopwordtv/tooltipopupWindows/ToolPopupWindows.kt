@@ -26,7 +26,7 @@ class ToolPopupWindows(private val context: Context) {
 
     private fun initToolTip() {
         val inflater: LayoutInflater =
-                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         contentView = inflater.inflate(R.layout.dialog_tooltip, null)
 
         tipWindow.width = (getWithWindow().x * 0.9).toInt()
@@ -63,10 +63,19 @@ class ToolPopupWindows(private val context: Context) {
         tipWindow.setOnDismissListener(onClick)
     }
 
+    fun setDescription(description: String) {
+        contentView.description.text = description
+    }
+
     fun showToolTip(anchorView: TextView, wordSelected: String, lineNumber: Int, width: Int) {
 
         val location = getLocationOnScreen(anchorView, context)
-        val anchorRect = Rect(location.x, location.y, location.x + anchorView.width, location.y + anchorView.height)
+        val anchorRect = Rect(
+            location.x,
+            location.y,
+            location.x + anchorView.width,
+            location.y + anchorView.height
+        )
         val heightOfLine = anchorView.lineHeight - space
         val positionY = anchorRect.top + (lineNumber * heightOfLine)
 

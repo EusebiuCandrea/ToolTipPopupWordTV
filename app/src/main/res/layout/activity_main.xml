@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.ecandrea.library.tooltipopwordtv.wordTextView.SelectableWordTextView
+    <com.ecandrea.library.tooltipopwordtv.wordTextView.WordSelectTextView
         android:id="@+id/word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,6 +17,6 @@
         android:layout_margin="30dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Select a word \n from this text" />
+        tools:text="Select a word from this text" />
 
 </LinearLayout>

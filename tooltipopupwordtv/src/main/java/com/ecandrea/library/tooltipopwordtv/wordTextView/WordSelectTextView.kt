@@ -21,7 +21,7 @@ import com.ecandrea.library.tooltipopwordtv.R
 import com.ecandrea.library.tooltipopwordtv.tooltipopupWindows.ToolPopupWindows
 import com.ecandrea.library.tooltipopwordtv.utils.WordUtils
 
-class SelectableWordTextView : AppCompatTextView {
+class WordSelectTextView : AppCompatTextView {
 
     private var tooltip = ToolPopupWindows(context)
     private var charSequence: CharSequence = ""
@@ -44,8 +44,8 @@ class SelectableWordTextView : AppCompatTextView {
             defStyleAttr: Int
     ) : super(context, attrs, defStyleAttr) {
 
-        context.obtainStyledAttributes(attrs, R.styleable.SelectableWordTextView).apply {
-            getInt(R.styleable.SelectableWordTextView_language, 0)
+        context.obtainStyledAttributes(attrs, R.styleable.WordSelectTextView).apply {
+            getInt(R.styleable.WordSelectTextView_language, 0)
         }.also {
             it.recycle()
         }
@@ -106,7 +106,7 @@ class SelectableWordTextView : AppCompatTextView {
                 tv.selectionEnd,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-        super@SelectableWordTextView.setText(spannableString, bufferType)
+        super@WordSelectTextView.setText(spannableString, bufferType)
 
     }
 
@@ -123,7 +123,7 @@ class SelectableWordTextView : AppCompatTextView {
 
     private fun dismissSelected() {
         spannableString!!.removeSpan(underlineSpan)
-        super@SelectableWordTextView.setText(spannableString, bufferType)
+        super@WordSelectTextView.setText(spannableString, bufferType)
     }
 
     private val clickableSpan: ClickableSpan
@@ -150,7 +150,7 @@ class SelectableWordTextView : AppCompatTextView {
 
             }
 
-            override fun updateDrawState(textPaint: TextPaint) {}
+            override fun updateDrawState(text8Paint: TextPaint) {}
         }
 
     private fun getWordLeftSize(textView: TextView, word: String, lineNumber: Int, startIndex: Int): Int {
@@ -162,5 +162,9 @@ class SelectableWordTextView : AppCompatTextView {
         textView.paint.getTextBounds(substring, 0, substring.length, leftWords)
         textView.paint.getTextBounds(word, 0, word.length, selectedWord)
         return leftWords.width() + selectedWord.width() / 2
+    }
+
+     fun setDescription(description:String){
+        tooltip.setDescription(description)
     }
 }
