@@ -191,4 +191,5 @@ class SelectableWordTextView : AppCompatTextView {
 
         fun build(): SelectableWordTextView = SelectableWordTextView(context, this)
     }
+
 }

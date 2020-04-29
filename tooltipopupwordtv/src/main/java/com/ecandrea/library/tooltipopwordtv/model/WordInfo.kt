@@ -6,3 +6,4 @@ class WordInfo(
         var start: Int = Constants.NO_INT_VALUE,
         var end: Int = Constants.NO_INT_VALUE
 )
+
