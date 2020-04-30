@@ -18,41 +18,35 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import com.ecandrea.library.tooltipopwordtv.R
-import com.ecandrea.library.tooltipopwordtv.listeners.OnSelectedWordListener
+import com.ecandrea.library.tooltipopwordtv.listeners.SelectableWordListeners
 import com.ecandrea.library.tooltipopwordtv.tooltipopupWindows.ToolPopupWindows
-import com.ecandrea.library.tooltipopwordtv.utils.Constants
 import com.ecandrea.library.tooltipopwordtv.utils.WordUtils
-
-@DslMarker
-annotation class SelectableWordBuilderDsl
-
-@SelectableWordBuilderDsl
-inline fun createSelectableWord(context: Context, block: SelectableWordTextView.SelectableWordBuilder.() -> Unit) =
-        SelectableWordTextView.SelectableWordBuilder(context).apply(block).build()
 
 class SelectableWordTextView : AppCompatTextView {
 
-    private var tooltip = ToolPopupWindows(context)
+    //Will be initialize later
+    private lateinit var tooltip: ToolPopupWindows
+    private lateinit var selectableWordListener: SelectableWordListeners
+
     private var charSequence: CharSequence = ""
     private var bufferType: BufferType? = null
     private var spannableString: SpannableString? = null
     private var underlineSpan: UnderlineSpan? = null
     private var languageType = 0
 
-    constructor(context: Context, builder: SelectableWordBuilder) : super(context)
+    constructor(context: Context) : super(context)
 
     constructor(context: Context?, attrs: AttributeSet?) : super(
-            context,
-            attrs
+        context,
+        attrs
     )
 
     @SuppressLint("Recycle")
     constructor(
-            context: Context,
-            attrs: AttributeSet?,
-            defStyleAttr: Int
+        context: Context,
+        attrs: AttributeSet?,
+        defStyleAttr: Int
     ) : super(context, attrs, defStyleAttr) {
-
         context.obtainStyledAttributes(attrs, R.styleable.SelectableWordTextView).apply {
             getInt(R.styleable.SelectableWordTextView_language, 0)
         }.also {
@@ -82,10 +76,10 @@ class SelectableWordTextView : AppCompatTextView {
         charSequence.withIndex().forEach { (index, char) ->
             if (WordUtils.isChinese(char)) {
                 spannableString?.setSpan(
-                        clickableSpan,
-                        index,
-                        index + 1,
-                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    clickableSpan,
+                    index,
+                    index + 1,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
             }
         }
@@ -95,10 +89,10 @@ class SelectableWordTextView : AppCompatTextView {
         val wordInfoList = WordUtils.getEnglishWordIndices(charSequence.toString())
         wordInfoList.forEach { wordInfo ->
             spannableString?.setSpan(
-                    clickableSpan,
-                    wordInfo.start,
-                    wordInfo.end,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                clickableSpan,
+                wordInfo.start,
+                wordInfo.end,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             )
         }
     }
@@ -110,10 +104,10 @@ class SelectableWordTextView : AppCompatTextView {
             spannableString?.removeSpan(underlineSpan)
         }
         spannableString?.setSpan(
-                underlineSpan,
-                tv.selectionStart,
-                tv.selectionEnd,
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            underlineSpan,
+            tv.selectionStart,
+            tv.selectionEnd,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         super@SelectableWordTextView.setText(spannableString, bufferType)
 
@@ -152,7 +146,8 @@ class SelectableWordTextView : AppCompatTextView {
                         val lineNumber = tv.layout.getLineForOffset(startIndex)
                         val leftSize = getWordLeftSize(tv, it, lineNumber, startIndex)
 
-                        tooltip.showToolTipAtLocation(tv, it, lineNumber + 1, leftSize)
+//                        tooltip.showToolTipAtLocation(tv, it, lineNumber + 1, leftSize)
+                        selectableWordListener.onWordSelected(tv, it, lineNumber + 1, leftSize)
                         initListeners()
                     }
                 }
@@ -162,7 +157,12 @@ class SelectableWordTextView : AppCompatTextView {
             override fun updateDrawState(text8Paint: TextPaint) {}
         }
 
-    private fun getWordLeftSize(textView: TextView, word: String, lineNumber: Int, startIndex: Int): Int {
+    private fun getWordLeftSize(
+        textView: TextView,
+        word: String,
+        lineNumber: Int,
+        startIndex: Int
+    ): Int {
         val textFound = textView.layout.getLineStart(lineNumber)
         val substring = textView.text.toString().substring(textFound, startIndex)
 
@@ -173,23 +173,19 @@ class SelectableWordTextView : AppCompatTextView {
         return leftWords.width() + selectedWord.width() / 2
     }
 
-    fun setDescription(description: String) {
-        tooltip.setDescription(description)
+    //Used for customization
+    fun setToolTipListener(listener: SelectableWordListeners) {
+        this.selectableWordListener = listener
     }
 
-    @SelectableWordBuilderDsl
-    class SelectableWordBuilder(private val context: Context) {
-        var text: String = Constants.NO_TEXT
-        var underlineSpan: Boolean = false
-        var selectedWordListener: OnSelectedWordListener? = null
-
-        fun setText(text: String): SelectableWordBuilder = apply { this.text = text }
-
-        fun setUnderlineSpan(underline: Boolean): SelectableWordBuilder = apply { this.underlineSpan = underline }
-
-        fun setSelectedWordListener(listener: OnSelectedWordListener): SelectableWordBuilder = apply { this.selectedWordListener = listener }
-
-        fun build(): SelectableWordTextView = SelectableWordTextView(context, this)
+    fun showToolTipWindow(
+        anchorView: TextView,
+        wordSelected: String,
+        lineNumber: Int,
+        width: Int,
+        toolPopupWindows: ToolPopupWindows
+    ) {
+        tooltip = toolPopupWindows
+        tooltip.showToolTipAtLocation(anchorView, wordSelected, lineNumber, width)
     }
-
 }
