@@ -84,7 +84,6 @@ class ToolPopupWindows(
                 applyArrowCustomizer(it)
             }
         }
-    }
 
     private fun initCustomLayout() {
         contentView.defaultLayout.hide()
