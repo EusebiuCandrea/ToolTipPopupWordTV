@@ -13,13 +13,26 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import com.ecandrea.library.tooltipopwordtv.R
 import com.ecandrea.library.tooltipopwordtv.hide
-import com.ecandrea.library.tooltipopwordtv.listeners.OnToolTipDismissListener
+import com.ecandrea.library.tooltipopwordtv.listeners.ToolTipListeners
 import com.ecandrea.library.tooltipopwordtv.utils.Constants
 import com.ecandrea.library.tooltipopwordtv.utils.ScreenSizeUtils.getLocationOnScreen
 import kotlinx.android.synthetic.main.default_tooltip_layout.view.*
 import kotlinx.android.synthetic.main.dialog_tooltip.view.*
 
-class ToolPopupWindows(private val context: Context) {
+@DslMarker
+annotation class ToolPopupWindowsDsl
+
+@ToolPopupWindowsDsl
+inline fun createToolPopupWindows(
+    context: Context,
+    block: ToolPopupWindows.ToolTipBuilder.() -> Unit
+): ToolPopupWindows =
+    ToolPopupWindows.ToolTipBuilder(context).apply(block).build()
+
+class ToolPopupWindows(
+    private val context: Context,
+    private val builder: ToolTipBuilder
+) {
     private val tipWindow: PopupWindow = PopupWindow(context)
     private lateinit var contentView: View
 
@@ -29,7 +42,7 @@ class ToolPopupWindows(private val context: Context) {
 
     private fun initToolTip() {
         val inflater: LayoutInflater =
-                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         contentView = inflater.inflate(R.layout.dialog_tooltip, null)
 
         with(tipWindow) {
@@ -83,22 +96,21 @@ class ToolPopupWindows(private val context: Context) {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val viewInflated = inflater.inflate(layout, null)
         contentView.tooltipContent.addView(viewInflated)
-
         return viewInflated
     }
 
     fun showToolTipAtLocation(
-            anchorView: TextView,
-            wordSelected: String,
-            lineNumber: Int,
-            width: Int
+        anchorView: TextView,
+        wordSelected: String,
+        lineNumber: Int,
+        width: Int
     ) {
 
         val location = getLocationOnScreen(anchorView, context)
         val anchorRect = Rect(
-                location.x, location.y,
-                location.x + anchorView.width,
-                location.y + anchorView.height
+            location.x, location.y,
+            location.x + anchorView.width,
+            location.y + anchorView.height
         )
         val heightOfLine = anchorView.lineHeight - space
         val positionY = anchorRect.top + (lineNumber * heightOfLine)
@@ -115,13 +127,36 @@ class ToolPopupWindows(private val context: Context) {
 
     }
 
-    class ToolTipBuilder() {
+    fun getContentView(): View {
+        return contentView.tooltipContent
+    }
+
+    @ToolPopupWindowsDsl
+    class ToolTipBuilder(private val context: Context) {
         var textColor: Int = Constants.NO_INT_VALUE
         var backgroundColor: Int = Constants.NO_INT_VALUE
         var customLayout: Int = Constants.NO_INT_VALUE
         var isOutsideTouchouble: Boolean = true
         var autoDismissDuration: Long = Constants.NO_INT_VALUE.toLong()
-        var onToolTipDismiss: OnToolTipDismissListener? = null
+        var toolTipListeners: ToolTipListeners? = null
+
+        fun setTextColor(value: Int): ToolTipBuilder = apply { this.textColor = value }
+
+        fun setBackgroundColor(value: Int): ToolTipBuilder = apply { this.backgroundColor = value }
+
+        fun setCustomLayout(value: Int): ToolTipBuilder = apply { this.customLayout = value }
+
+        fun setAutoDismissDuration(value: Long): ToolTipBuilder =
+            apply { this.autoDismissDuration = value }
+
+        fun setIsOutsideTouchouble(value: Boolean): ToolTipBuilder =
+            apply { this.isOutsideTouchouble = value }
+
+        fun setToolTipListener(listener: ToolTipListeners): ToolTipBuilder =
+            apply { this.toolTipListeners = listener }
+
+        fun build(): ToolPopupWindows =
+            ToolPopupWindows(context = context, builder = this@ToolTipBuilder)
     }
 
     companion object {

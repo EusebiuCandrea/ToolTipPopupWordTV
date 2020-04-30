@@ -1,5 +1,5 @@
 package com.ecandrea.library.tooltipopwordtv.listeners
 
-interface OnToolTipDismissListener {
+interface ToolTipListeners {
     fun onToolTipDismiss()
 }
