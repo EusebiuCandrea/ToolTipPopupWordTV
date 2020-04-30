@@ -1,6 +1,5 @@
 package com.ecandrea.library.tooltipopwordtv.wordTextView
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Rect
@@ -9,7 +8,9 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.TextUtils
 import android.text.method.LinkMovementMethod
+import android.text.style.BackgroundColorSpan
 import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.text.style.UnderlineSpan
 import android.util.AttributeSet
 import android.view.View
@@ -20,9 +21,9 @@ import com.ecandrea.library.tooltipopwordtv.listeners.SelectableWordListeners
 import com.ecandrea.library.tooltipopwordtv.tooltipopupWindows.ToolPopupWindows
 import com.ecandrea.library.tooltipopwordtv.utils.WordUtils
 
-class SelectableWordTextView : AppCompatTextView {
 
-    //Will be initialize later
+class SelectableWordTextView(context: Context?, attrs: AttributeSet?) : AppCompatTextView(context, attrs) {
+
     private lateinit var tooltip: ToolPopupWindows
     private lateinit var selectableWordListener: SelectableWordListeners
 
@@ -30,30 +31,17 @@ class SelectableWordTextView : AppCompatTextView {
     private var bufferType: BufferType? = null
     private var spannableString: SpannableString? = null
     private var underlineSpan: UnderlineSpan? = null
-    private var highlightCustomColor = 0
-    private var highlightText: String? = null
-    private var selectedColor = 0
-    private var language = 0
-    private var languageType = 0
+    private var selectedBackSpan: BackgroundColorSpan? = null
+    private var selectedForeSpan: ForegroundColorSpan? = null
+    private var backgroundWord = 0
+    private var wordColor = 0
+    private var setUnderlineSpan = false
 
-    constructor(context: Context) : super(context)
-
-    constructor(context: Context?, attrs: AttributeSet?) : super(
-            context,
-            attrs
-    )
-
-    @SuppressLint("Recycle")
-    constructor(
-            context: Context,
-            attrs: AttributeSet?,
-            defStyleAttr: Int
-    ) : super(context, attrs, defStyleAttr) {
-        context.obtainStyledAttributes(attrs, R.styleable.SelectableWordTextView).apply {
-            highlightCustomColor = getColor(R.styleable.SelectableWordTextView_highlightColor, Color.RED)
-            selectedColor = getColor(R.styleable.SelectableWordTextView_selectedColor, Color.BLUE);
-            highlightText = getString(R.styleable.SelectableWordTextView_highlightText)
-            language = getInt(R.styleable.SelectableWordTextView_language, 0)
+    init {
+        context!!.obtainStyledAttributes(attrs, R.styleable.SelectableWordTextView).apply {
+            setUnderlineSpan = getBoolean(R.styleable.SelectableWordTextView_setUnderline, false)
+            backgroundWord = getColor(R.styleable.SelectableWordTextView_highlightBackgroundColor, Color.TRANSPARENT)
+            wordColor = getColor(R.styleable.SelectableWordTextView_highlightTextColor, Color.RED)
         }.also {
             it.recycle()
         }
@@ -69,30 +57,7 @@ class SelectableWordTextView : AppCompatTextView {
 
     private fun setText() {
         spannableString = SpannableString(charSequence)
-        if (languageType == 0) {
-            dealEnglish()
-        } else {
-            dealChinese()
-        }
-        super.setText(spannableString, bufferType)
-    }
-
-    private fun dealChinese() {
-        charSequence.withIndex().forEach { (index, char) ->
-            if (WordUtils.isChinese(char)) {
-                spannableString?.setSpan(
-                        clickableSpan,
-                        index,
-                        index + 1,
-                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-            }
-        }
-    }
-
-    private fun dealEnglish() {
-        val wordInfoList = WordUtils.getEnglishWordIndices(charSequence.toString())
-        wordInfoList.forEach { wordInfo ->
+        WordUtils.getWordIndices(charSequence.toString()).forEach { wordInfo ->
             spannableString?.setSpan(
                     clickableSpan,
                     wordInfo.start,
@@ -100,13 +65,18 @@ class SelectableWordTextView : AppCompatTextView {
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             )
         }
+        super.setText(spannableString, bufferType)
     }
 
     private fun setSelectedSpan(tv: TextView) {
-        if (underlineSpan == null) {
-            underlineSpan = UnderlineSpan()
+        if (underlineSpan == null || selectedBackSpan == null || selectedForeSpan == null) {
+            if (setUnderlineSpan) underlineSpan = UnderlineSpan()
+            selectedBackSpan = BackgroundColorSpan(backgroundWord)
+            selectedForeSpan = ForegroundColorSpan(wordColor)
         } else {
             spannableString?.removeSpan(underlineSpan)
+            spannableString?.removeSpan(selectedBackSpan)
+            spannableString?.removeSpan(selectedForeSpan)
         }
         spannableString?.setSpan(
                 underlineSpan,
@@ -114,12 +84,16 @@ class SelectableWordTextView : AppCompatTextView {
                 tv.selectionEnd,
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-        super@SelectableWordTextView.setText(spannableString, bufferType)
 
+        spannableString?.setSpan(selectedBackSpan, tv.selectionStart, tv.selectionEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString?.setSpan(selectedForeSpan, tv.selectionStart, tv.selectionEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        super@SelectableWordTextView.setText(spannableString, bufferType)
     }
 
     fun dismissSelected() {
-        spannableString!!.removeSpan(underlineSpan)
+        spannableString?.removeSpan(underlineSpan)
+        spannableString?.removeSpan(selectedBackSpan)
+        spannableString?.removeSpan(selectedForeSpan)
         super@SelectableWordTextView.setText(spannableString, bufferType)
     }
 
@@ -165,7 +139,9 @@ class SelectableWordTextView : AppCompatTextView {
         return leftWords.width() + selectedWord.width() / 2
     }
 
-    //Used for customization
+    /**
+     * Used for customization
+     */
     fun setToolTipListener(listener: SelectableWordListeners) {
         this.selectableWordListener = listener
     }
