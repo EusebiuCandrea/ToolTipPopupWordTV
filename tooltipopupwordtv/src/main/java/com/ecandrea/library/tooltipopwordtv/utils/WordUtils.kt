@@ -5,85 +5,56 @@ import java.util.*
 
 internal object WordUtils {
 
-    private var sPunctuations: List<Char>? = null
+    private val punctuations: List<Char>? = listOf(',', '.', ';', '!', '"', '，', '。', '！', '；', '、', '：', '“', '”', '?', '？')
 
-    init {
-        val arr = listOf(
-            ',',
-            '.',
-            ';',
-            '!',
-            '"',
-            '，',
-            '。',
-            '！',
-            '；',
-            '、',
-            '：',
-            '“',
-            '”',
-            '?',
-            '？'
-        )
-        sPunctuations = arr
-    }
-
-    fun isChinese(ch: Char): Boolean {
-        return !sPunctuations!!.contains(ch)
-    }
-
-    fun getEnglishWordIndices(content: String): List<WordInfo> {
-        val separatorIndices =
-            getSeparatorIndices(
-                content,
-                ' '
-            )
-        for (punctuation in sPunctuations!!) {
-            separatorIndices.addAll(
-                getSeparatorIndices(
-                    content,
-                    punctuation
-                )
-            )
-        }
-        separatorIndices.sort()
+    private fun createWordInfoList(separatorIndices: MutableList<Int>): MutableList<WordInfo> {
         val wordInfoList: MutableList<WordInfo> = ArrayList()
         var start = 0
         var end: Int
-        for (i in separatorIndices.indices) {
-            end = separatorIndices[i]
+        separatorIndices.forEach { separator ->
+            end = separator
             if (start == end) {
                 start++
             } else {
-                val wordInfo =
-                    WordInfo()
-                wordInfo.start = start
-                wordInfo.end = end
-                wordInfoList.add(wordInfo)
+                WordInfo().apply {
+                    this.start = start
+                    this.end = end
+                }.also {
+                    wordInfoList.add(it)
+                }
                 start = end + 1
             }
         }
+
         return wordInfoList
     }
 
-    /**
-     * Get every word's index array of text
-     *
-     * @param word the content
-     * @param ch   separate char
-     * @return index array
-     */
-    private fun getSeparatorIndices(
-        word: String,
-        ch: Char
-    ): MutableList<Int> {
-        var pos = word.indexOf(ch)
+    private fun getSeparatorIndices(word: String, char: Char): MutableList<Int> {
+        var pos = word.indexOf(char)
         val indices: MutableList<Int> = ArrayList()
         while (pos != -1) {
             indices.add(pos)
-            pos = word.indexOf(ch, pos + 1)
+            pos = word.indexOf(char, pos + 1)
         }
         return indices
     }
 
+    fun getWordIndices(content: String): List<WordInfo> {
+        val separatorIndices =
+                getSeparatorIndices(
+                        content,
+                        ' '
+                )
+        for (punctuation in punctuations!!) {
+            separatorIndices.addAll(
+                    getSeparatorIndices(
+                            content,
+                            punctuation
+                    )
+            )
+        }
+        separatorIndices.sort()
+
+        return createWordInfoList(separatorIndices)
+    }
 }

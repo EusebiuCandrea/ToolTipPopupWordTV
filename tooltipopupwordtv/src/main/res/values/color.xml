@@ -2,7 +2,8 @@
 <resources>
 
     <color name="white">#FFFFFF</color>
+    <color name="blue_sky">#03A9F4</color>
+    <color name="gray_dialog">#B9B9B9</color>
     <color name="gray_dark_dialog">#2F3136</color>
-    <color name="gray_translation_dialog">#B9B9B9</color>
 
 </resources>
