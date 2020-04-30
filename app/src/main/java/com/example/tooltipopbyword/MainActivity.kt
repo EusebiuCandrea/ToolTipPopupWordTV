@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity(), SelectableWordListeners {
             lineNumber: Int,
             width: Int
     ) {
+
         val toolPopupWindows = ToolPopupWindows.ToolTipBuilder(this)
                 .setToolTipListener { Toast.makeText(applicationContext, "dismissed", Toast.LENGTH_SHORT).show() }
 //                .setCustomLayout(R.layout.my_layout)

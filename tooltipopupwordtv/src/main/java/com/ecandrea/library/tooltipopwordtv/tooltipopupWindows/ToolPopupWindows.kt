@@ -77,7 +77,6 @@ class ToolPopupWindows(
     private fun initTextCustomizer() {
         contentView.title.applyTextCustomizer(builder)
         contentView.description.applyTextCustomizer(builder)
-    }
 
     private fun initializeArrowAnchor() {
         with(contentView.arrowAnchor) {
