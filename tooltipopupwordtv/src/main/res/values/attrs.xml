@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SelectableWordTextView">
+        <attr name="setUnderline" format="reference|boolean" />
+        <attr name="highlightBackgroundColor" format="reference|color" />
+        <attr name="highlightTextColor" format="reference|color" />
+    </declare-styleable>
+</resources>
