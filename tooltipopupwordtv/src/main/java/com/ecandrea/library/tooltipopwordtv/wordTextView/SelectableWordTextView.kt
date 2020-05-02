@@ -36,6 +36,7 @@ class SelectableWordTextView(context: Context?, attrs: AttributeSet?) : AppCompa
     private var backgroundWord = 0
     private var wordColor = 0
     private var setUnderlineSpan = false
+    private var enableClicks = true
 
     init {
         context!!.obtainStyledAttributes(attrs, R.styleable.SelectableWordTextView).apply {
@@ -90,7 +91,7 @@ class SelectableWordTextView(context: Context?, attrs: AttributeSet?) : AppCompa
         super@SelectableWordTextView.setText(spannableString, bufferType)
     }
 
-    fun dismissSelected() {
+    internal fun dismissSelected() {
         spannableString?.removeSpan(underlineSpan)
         spannableString?.removeSpan(selectedBackSpan)
         spannableString?.removeSpan(selectedForeSpan)
@@ -114,7 +115,13 @@ class SelectableWordTextView(context: Context?, attrs: AttributeSet?) : AppCompa
                         val lineNumber = tv.layout.getLineForOffset(startIndex)
                         val leftSize = getWordLeftSize(tv, it, lineNumber, startIndex)
 
-                        selectableWordListener.onWordSelected(tv, it, lineNumber + 1, leftSize)
+                        if (enableClicks) {
+                            selectableWordListener.onWordSelected(tv, it, lineNumber + 1, leftSize)
+                            enableClicks = false
+                            android.os.Handler().postDelayed({
+                                enableClicks = true
+                            }, 1000)
+                        }
                     }
                 }
 
@@ -125,6 +132,7 @@ class SelectableWordTextView(context: Context?, attrs: AttributeSet?) : AppCompa
 
     private fun getWordLeftSize(
             textView: TextView,
+
             word: String,
             lineNumber: Int,
             startIndex: Int
