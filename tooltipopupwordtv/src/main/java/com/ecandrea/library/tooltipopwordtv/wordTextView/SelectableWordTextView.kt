@@ -15,6 +15,7 @@ import android.text.style.UnderlineSpan
 import android.util.AttributeSet
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatTextView
 import com.ecandrea.library.tooltipopwordtv.R
 import com.ecandrea.library.tooltipopwordtv.listeners.SelectableWordListeners
@@ -132,7 +133,6 @@ class SelectableWordTextView(context: Context?, attrs: AttributeSet?) : AppCompa
 
     private fun getWordLeftSize(
             textView: TextView,
-
             word: String,
             lineNumber: Int,
             startIndex: Int
@@ -164,5 +164,11 @@ class SelectableWordTextView(context: Context?, attrs: AttributeSet?) : AppCompa
         tooltip = toolPopupWindows
         tooltip.showToolTipAtLocation(anchorView, wordSelected, lineNumber, width)
     }
+
+    fun setBackgroundWordColor(@ColorInt value: Int) = apply { this.backgroundWord = value }
+
+    fun setWordColor(@ColorInt value: Int) = apply { this.wordColor = value }
+
+    fun setUnderline(value: Boolean) = apply { this.setUnderlineSpan = value }
 
 }
