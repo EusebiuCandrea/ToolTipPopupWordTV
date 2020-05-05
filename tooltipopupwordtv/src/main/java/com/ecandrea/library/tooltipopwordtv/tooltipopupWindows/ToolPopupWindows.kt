@@ -25,6 +25,7 @@ import com.ecandrea.library.tooltipopwordtv.utils.ScreenSizeUtils.getWidthWindow
 import com.ecandrea.library.tooltipopwordtv.utils.TooltipPopupConstants.DEFAULT_DESCRIPTION
 import com.ecandrea.library.tooltipopwordtv.utils.TooltipPopupConstants.NO_INT_VALUE
 import com.ecandrea.library.tooltipopwordtv.utils.applyArrowCustomizer
+import com.ecandrea.library.tooltipopwordtv.utils.applyDescriptionCustomizer
 import com.ecandrea.library.tooltipopwordtv.utils.applyTextCustomizer
 import com.ecandrea.library.tooltipopwordtv.wordTextView.SelectableWordTextView
 import kotlinx.android.synthetic.main.default_tooltip_layout.view.*
@@ -91,7 +92,7 @@ class ToolPopupWindows(
 
     private fun initTextCustomizer() {
         contentView.title.applyTextCustomizer(builder)
-        contentView.description.applyTextCustomizer(builder)
+        contentView.description.applyDescriptionCustomizer(builder)
     }
 
     private fun initializeArrowAnchor() {
@@ -176,11 +177,12 @@ class ToolPopupWindows(
     @Suppress("MemberVisibilityCanBePrivate")
     class ToolTipBuilder(private val context: Context) {
         var width: Double = 0.8
-        var textColor: Int = NO_INT_VALUE
-
-        @Sp
-        var textSize: Float = NO_INT_VALUE.toFloat()
-        var textTypeface = Typeface.NORMAL
+        var textTitleColor: Int = NO_INT_VALUE
+        var textTitleSize: Float = NO_INT_VALUE.toFloat()
+        var textTitleTypeface = Typeface.NORMAL
+        var textDescriptionColor: Int = NO_INT_VALUE
+        var textDescriptionSize: Float = NO_INT_VALUE.toFloat()
+        var textDescriptionTypeface = Typeface.NORMAL
         var backgroundColor: Int = NO_INT_VALUE
         var backgroundDrawable: Drawable? = null
         var customLayout: Int = NO_INT_VALUE
@@ -193,21 +195,31 @@ class ToolPopupWindows(
 
         fun setWidthPercentsFromScreen(value: Double): ToolTipBuilder = apply { this.width = value }
 
-        fun setTextColor(@ColorInt value: Int): ToolTipBuilder = apply { this.textColor = value }
+        fun setTitleTextColor(@ColorInt value: Int): ToolTipBuilder = apply { this.textTitleColor = value }
 
-        fun setTextColorResource(@ColorRes value: Int): ToolTipBuilder = apply {
-            this.textColor = context.contextColor(value)
+        fun setTitleTextColorResource(@ColorRes value: Int): ToolTipBuilder = apply {
+            this.textTitleColor = context.contextColor(value)
         }
 
-        fun setTextTypeface(value: Int): ToolTipBuilder = apply { this.textTypeface = value }
+        fun setTitleTextTypeface(value: Int): ToolTipBuilder = apply { this.textTitleTypeface = value }
 
-        fun setTextSize(@Sp value: Float): ToolTipBuilder = apply { this.textSize = value }
+        fun setTitleTextSize(@Sp value: Float): ToolTipBuilder = apply { this.textTitleSize = value }
 
         fun setBackgroundColor(value: Int): ToolTipBuilder = apply { this.backgroundColor = value }
 
         fun setBackgroundDrawable(@DrawableRes value: Int): ToolTipBuilder = apply {
             this.backgroundDrawable = context.contextDrawable(value)
         }
+
+        fun setDescriptionTextColor(@ColorInt value: Int): ToolTipBuilder = apply { this.textDescriptionColor = value }
+
+        fun setDescriptionTextColorResource(@ColorRes value: Int): ToolTipBuilder = apply {
+            this.textTitleColor = context.contextColor(value)
+        }
+
+        fun setDescriptionTextTypeface(value: Int): ToolTipBuilder = apply { this.textDescriptionTypeface = value }
+
+        fun setDescriptionTextSize(@Sp value: Float): ToolTipBuilder = apply { this.textDescriptionSize = value }
 
         fun setCustomLayout(value: Int): ToolTipBuilder = apply { this.customLayout = value }
 

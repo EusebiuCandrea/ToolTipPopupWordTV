@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.ecandrea.library.tooltipopwordtv.tooltipopupWindows.ArrowCustomizer
+import androidx.core.content.ContextCompat
 import com.ecandrea.library.tooltipopwordtv.listeners.SelectableWordListeners
+import com.ecandrea.library.tooltipopwordtv.tooltipopupWindows.ArrowCustomizer
 import com.ecandrea.library.tooltipopwordtv.tooltipopupWindows.ToolPopupWindows
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.my_layout.view.*
 
 class MainActivity : AppCompatActivity(), SelectableWordListeners {
 
@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity(), SelectableWordListeners {
             text = "Select a word from this example."
             setToolTipListener(this@MainActivity)
         }
+        word.setBackgroundWordColor(ContextCompat.getColor(this, R.color.colorAccent))
     }
 
     override fun onWordSelected(
@@ -33,13 +34,13 @@ class MainActivity : AppCompatActivity(), SelectableWordListeners {
                 .setToolTipListener { Toast.makeText(applicationContext, "dismissed", Toast.LENGTH_SHORT).show() }
 //                .setCustomLayout(R.layout.my_layout)
                 .setAutoDismissDuration(1500)
-                .setTextColor(resources.getColor(R.color.colorAccent))
-                .setTextSize(20f)
-                .setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                .setTitleTextColor(ContextCompat.getColor(this, R.color.colorAccent))
+                .setTitleTextSize(20f)
+                .setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary))
 //                .setTextTitle("Ceva")
                 .setIsOutsideTouchable(false)
                 .setArrowCustomizer(ArrowCustomizer.Builder(this)
-                        .setArrowColor(resources.getColor(R.color.colorAccent))
+                        .setArrowColor(ContextCompat.getColor(this, R.color.colorAccent))
                         .setArrowSize(20)
                         .build())
                 .build()

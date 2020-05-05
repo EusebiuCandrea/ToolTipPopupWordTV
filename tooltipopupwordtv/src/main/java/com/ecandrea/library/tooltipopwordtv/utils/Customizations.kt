@@ -21,7 +21,13 @@ internal fun AppCompatImageView.applyArrowCustomizer(arrowCustomizer: ArrowCusto
 }
 
 internal fun TextView.applyTextCustomizer(textCustomizer: ToolPopupWindows.ToolTipBuilder) {
-    if (textCustomizer.textSize.isValueSet()) textSize = textCustomizer.textSize
-    if (textCustomizer.textColor.isValueSet()) setTextColor(textCustomizer.textColor)
-    setTypeface(typeface, textCustomizer.textTypeface)
+    if (textCustomizer.textTitleSize.isValueSet()) textSize = textCustomizer.textTitleSize
+    if (textCustomizer.textTitleColor.isValueSet()) setTextColor(textCustomizer.textTitleColor)
+    setTypeface(typeface, textCustomizer.textTitleTypeface)
+}
+
+internal fun TextView.applyDescriptionCustomizer(textCustomizer: ToolPopupWindows.ToolTipBuilder) {
+    if (textCustomizer.textDescriptionSize.isValueSet()) textSize = textCustomizer.textDescriptionSize
+    if (textCustomizer.textDescriptionColor.isValueSet()) setTextColor(textCustomizer.textDescriptionColor)
+    setTypeface(typeface, textCustomizer.textDescriptionTypeface)
 }
