@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Rect
 import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -14,11 +15,10 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
-import com.ecandrea.library.tooltipopwordtv.R
+import androidx.annotation.DrawableRes
+import androidx.core.graphics.drawable.DrawableCompat
+import com.ecandrea.library.tooltipopwordtv.*
 import com.ecandrea.library.tooltipopwordtv.annotations.Sp
-import com.ecandrea.library.tooltipopwordtv.contextColor
-import com.ecandrea.library.tooltipopwordtv.hide
-import com.ecandrea.library.tooltipopwordtv.isValueSet
 import com.ecandrea.library.tooltipopwordtv.listeners.ToolTipListeners
 import com.ecandrea.library.tooltipopwordtv.utils.ScreenSizeUtils.getLocationOnScreen
 import com.ecandrea.library.tooltipopwordtv.utils.ScreenSizeUtils.getWidthWindow
@@ -47,6 +47,7 @@ class ToolPopupWindows(
         else {
             populateToolTipPopup()
             initTextCustomizer()
+            initToolTipCustomizations()
         }
     }
 
@@ -67,6 +68,20 @@ class ToolPopupWindows(
         }
 
         tipWindow.contentView = contentView
+    }
+
+    private fun initToolTipCustomizations() {
+        with(contentView.defaultLayout.container) {
+            if (builder.backgroundColor.isValueSet()) {
+                val contentDrawable = DrawableCompat.wrap(this.background)
+                DrawableCompat.setTint(contentDrawable, builder.backgroundColor)
+                this.background = contentDrawable
+            }
+
+            if (builder.backgroundDrawable != null) {
+                this.background = builder.backgroundDrawable
+            }
+        }
     }
 
     private fun populateToolTipPopup() {
@@ -91,7 +106,10 @@ class ToolPopupWindows(
         contentView.defaultLayout.hide()
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val viewInflated = inflater.inflate(builder.customLayout, null)
-        viewInflated.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        viewInflated.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        )
         contentView.tooltipContent.addView(viewInflated)
     }
 
@@ -164,6 +182,7 @@ class ToolPopupWindows(
         var textSize: Float = NO_INT_VALUE.toFloat()
         var textTypeface = Typeface.NORMAL
         var backgroundColor: Int = NO_INT_VALUE
+        var backgroundDrawable: Drawable? = null
         var customLayout: Int = NO_INT_VALUE
         var isOutsideTouchable: Boolean = true
         var textTitle: String = ""
@@ -186,6 +205,10 @@ class ToolPopupWindows(
 
         fun setBackgroundColor(value: Int): ToolTipBuilder = apply { this.backgroundColor = value }
 
+        fun setBackgroundDrawable(@DrawableRes value: Int): ToolTipBuilder = apply {
+            this.backgroundDrawable = context.contextDrawable(value)
+        }
+
         fun setCustomLayout(value: Int): ToolTipBuilder = apply { this.customLayout = value }
 
         fun setAutoDismissDuration(value: Long): ToolTipBuilder =
@@ -207,7 +230,8 @@ class ToolPopupWindows(
             this.textTitle = value
         }
 
-        fun setArrowCustomizer(value: ArrowCustomizer): ToolTipBuilder = apply { this.arrowCustomizer = value }
+        fun setArrowCustomizer(value: ArrowCustomizer): ToolTipBuilder =
+                apply { this.arrowCustomizer = value }
 
         fun setToolTipListener(unit: () -> Unit): ToolTipBuilder = apply {
             this.toolTipListeners = object : ToolTipListeners {

@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity(), SelectableWordListeners {
                 .setAutoDismissDuration(1500)
                 .setTextColor(resources.getColor(R.color.colorAccent))
                 .setTextSize(20f)
+                .setBackgroundColor(resources.getColor(R.color.colorPrimary))
 //                .setTextTitle("Ceva")
                 .setIsOutsideTouchable(false)
                 .setArrowCustomizer(ArrowCustomizer.Builder(this)
