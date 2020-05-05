@@ -134,13 +134,6 @@ class ToolPopupWindows(
         }
     }
 
-    private fun dismissTooltip() {
-        if (tipWindow.isShowing) {
-            dismissSelected()
-            tipWindow.dismiss()
-        }
-    }
-
     private fun dismissSelected() = parent.dismissSelected()
 
     fun showToolTipAtLocation(
@@ -172,6 +165,13 @@ class ToolPopupWindows(
 
     fun getCustomInflatedView(): View? {
         return if (builder.customLayout != NO_INT_VALUE) contentView.tooltipContent else null
+    }
+
+    fun dismissTooltip() {
+        if (tipWindow.isShowing) {
+            dismissSelected()
+            tipWindow.dismiss()
+        }
     }
 
     @Suppress("MemberVisibilityCanBePrivate")

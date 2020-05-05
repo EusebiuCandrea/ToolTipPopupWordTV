@@ -4,10 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <com.ecandrea.library.tooltipopwordtv.wordTextView.SelectableWordTextView
         android:id="@+id/word"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_margin="30dp"
+        app:highlightBackgroundColor="@color/blue"
+        app:highlightTextColor="@color/white"
+        app:setUnderline="true"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Select a word from this text" />
+
+
+    <com.ecandrea.library.tooltipopwordtv.wordTextView.SelectableWordTextView
+        android:id="@+id/wordTwo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
