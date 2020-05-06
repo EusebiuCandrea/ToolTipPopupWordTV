@@ -1,4 +1,4 @@
-<h1 align="center">TooltipPopupWord</h1></br>
+<h1 align="center">TooltipPopupByWord</h1></br>
 
 <p align="center">
 :loudspeaker: ToolTipopupWordTV is an Open Source Android library, that allows developers to easily open a popup like tooltips, fully customizable, with details by select a word from your text. :tada:
