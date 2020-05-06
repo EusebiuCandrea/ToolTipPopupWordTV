@@ -7,7 +7,6 @@
 <p align="center">
   <a href="https://github.com/EusebiuCandrea/ToolTipPopupWordTV/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
   <a href="https://android-arsenal.com/api?level=23"><img alt="API" src="https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=flat"/></a>
-   <a href="https://github.com/skydoves"><img alt="Profile" src="https://img.shields.io/badge/GitHub-1.00-green.svg"/></a>
 </p> <br>
 
 <p align="center">
@@ -130,7 +129,7 @@ inflatedView?.let {
 ```
 :warning: If you didn't added your custom layout this method can return `null`
 
-## `ToolPopupWindows.ToolTipBuilder` methods:
+### `ToolPopupWindows.ToolTipBuilder` methods:
 ```kotlin
 .setWidthPercentsFromScreen(value: Double)
 .setBackgroundColor(value: Int)
@@ -152,7 +151,7 @@ setTextTitle(value: String)
 .build()
 ```
 
-## `ArrowCustomizer.Builder` methods:
+### `ArrowCustomizer.Builder` methods:
 ```kotlin
 .setArrowDrawable(value: Drawable?)
 .setArrowDrawableResource(@DrawableRes value: Int)
