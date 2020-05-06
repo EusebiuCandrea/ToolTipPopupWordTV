@@ -57,8 +57,8 @@ class MainActivity : AppCompatActivity() {
                                     .build())
                             .build()
 
-                    val viewC = toolPopupWindows.getCustomInflatedView()
-                    viewC?.let {
+                    val inflatedView = toolPopupWindows.getCustomInflatedView()
+                    inflatedView?.let {
                         it.newText.text = wordSelected
                         it.newText.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.colorAccent))
 
