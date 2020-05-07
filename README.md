@@ -1,22 +1,23 @@
-<h1 align="center">TooltipPopupByWord</h1></br>
+<h1 align="center">TooltipPopupWord</h1></br>
 
 <p align="center">
-:loudspeaker: ToolTipopupWordTV is an Open Source Android library, that allows developers to easily open a popup like tooltips, fully customizable, with details by select a word from your text. :tada:
+:loudspeaker: ToolTipopupWordTV is an Open Source Android library, that allows you to easily open a popup like tooltip, fully customizable, with details about selected word from your text. :tada:
+</p><br>
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/33927023/81274220-aa7c0e00-9058-11ea-9ac7-e79eff5a6617.png" width="32%"/>
+
+<img src="https://user-images.githubusercontent.com/33927023/81274221-abad3b00-9058-11ea-93bc-628afad626f3.png" width="32%"/>
 </p>
-</br>
-<p align="center">
-  <a href="https://github.com/EusebiuCandrea/ToolTipPopupWordTV/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
-  <a href="https://android-arsenal.com/api?level=23"><img alt="API" src="https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=flat"/></a>
-</p> <br>
-
-<p align="center">
-<img src="https://user-images.githubusercontent.com/33927023/81177746-d7281b00-8faf-11ea-888e-0821a41b29ca.png" width="32%"/>
 
 ## Including in your project
 [![](https://jitpack.io/v/EusebiuCandrea/ToolTipPopupWordTV.svg)](https://jitpack.io/#EusebiuCandrea/ToolTipPopupWordTV)
+<a href="https://android-arsenal.com/api?level=23"><img alt="API" src="https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=flat"/></a>
+<a href="https://github.com/EusebiuCandrea/ToolTipPopupWordTV/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
+</p>
 
 ### Gradle 
-Add below codes to your **root** `build.gradle` file (not your module build.gradle file).
+Add below codes to your **root** `build.gradle` file.
 ```gradle
 allprojects {
 		repositories {
@@ -33,9 +34,11 @@ dependencies {
 ```
 
 ## Features
-- Customizable font include text size, typeface, color, backround and alignment.
-- Customizable ToolPopupWindows and Arrow.
-- Customizable layout.
+- Selectable word from text;
+- Show PopupWindow based on selected word;
+- Customizable textsize, typeface, color, backround and alignment;
+- Customizable ToolPopupWindows and Arrow
+- Customized layout.
 
 ### Custom attributes for `SelectableWordTextView`
 |attribute name|attribute description|
@@ -121,11 +124,15 @@ Firstly create an xml layout file like `custom_layout`.
 ```
 And next we can get the inflated custom layout using `getCustomInflatedView` method.
 ```kotlin
-val inflatedView = toolPopupWindows.getCustomInflatedView()
-inflatedView?.let {
-    it.newText.text = wordSelected
-    it.newText.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.colorAccent))
-}
+ val inflatedView = toolPopupWindows.getCustomInflatedView()
+        inflatedView?.let {
+            it.newText.text = wordSelected
+            it.newDescription.text = "Press remove button to delete this word!"
+            it.testButton.setOnClickListener {
+                removedWord(anchorView, wordSelected, wordTwo)
+                toolPopupWindows.dismissTooltip()
+            }
+        }
 ```
 :warning: If you didn't added your custom layout this method can return `null`
 
