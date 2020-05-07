@@ -13,6 +13,7 @@
 ## Including in your project
 [![](https://jitpack.io/v/EusebiuCandrea/ToolTipPopupWordTV.svg)](https://jitpack.io/#EusebiuCandrea/ToolTipPopupWordTV)
 <a href="https://android-arsenal.com/api?level=23"><img alt="API" src="https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=flat"/></a>
+<a href="https://android-arsenal.com/api?level=23"><img alt="AxdroidX" src="https://img.shields.io/badge/AndroidX-1.0.0-brightgreen.svg?style=flat"/></a>
 <a href="https://github.com/EusebiuCandrea/ToolTipPopupWordTV/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
 </p>
 
