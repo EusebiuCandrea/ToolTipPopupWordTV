@@ -163,15 +163,16 @@ class ToolPopupWindows(
 
     }
 
-    fun getCustomInflatedView(): View? {
-        return if (builder.customLayout != NO_INT_VALUE) contentView.tooltipContent else null
-    }
-
+    @Suppress("MemberVisibilityCanBePrivate")
     fun dismissTooltip() {
         if (tipWindow.isShowing) {
             dismissSelected()
             tipWindow.dismiss()
         }
+    }
+
+    fun getCustomInflatedView(): View? {
+        return if (builder.customLayout != NO_INT_VALUE) contentView.tooltipContent else null
     }
 
     @Suppress("MemberVisibilityCanBePrivate")
@@ -195,15 +196,18 @@ class ToolPopupWindows(
 
         fun setWidthPercentsFromScreen(value: Double): ToolTipBuilder = apply { this.width = value }
 
-        fun setTitleTextColor(@ColorInt value: Int): ToolTipBuilder = apply { this.textTitleColor = value }
+        fun setTitleTextColor(@ColorInt value: Int): ToolTipBuilder =
+                apply { this.textTitleColor = value }
 
         fun setTitleTextColorResource(@ColorRes value: Int): ToolTipBuilder = apply {
             this.textTitleColor = context.contextColor(value)
         }
 
-        fun setTitleTextTypeface(value: Int): ToolTipBuilder = apply { this.textTitleTypeface = value }
+        fun setTitleTextTypeface(value: Int): ToolTipBuilder =
+                apply { this.textTitleTypeface = value }
 
-        fun setTitleTextSize(@Sp value: Float): ToolTipBuilder = apply { this.textTitleSize = value }
+        fun setTitleTextSize(@Sp value: Float): ToolTipBuilder =
+                apply { this.textTitleSize = value }
 
         fun setBackgroundColor(value: Int): ToolTipBuilder = apply { this.backgroundColor = value }
 
@@ -211,15 +215,18 @@ class ToolPopupWindows(
             this.backgroundDrawable = context.contextDrawable(value)
         }
 
-        fun setDescriptionTextColor(@ColorInt value: Int): ToolTipBuilder = apply { this.textDescriptionColor = value }
+        fun setDescriptionTextColor(@ColorInt value: Int): ToolTipBuilder =
+                apply { this.textDescriptionColor = value }
 
         fun setDescriptionTextColorResource(@ColorRes value: Int): ToolTipBuilder = apply {
             this.textTitleColor = context.contextColor(value)
         }
 
-        fun setDescriptionTextTypeface(value: Int): ToolTipBuilder = apply { this.textDescriptionTypeface = value }
+        fun setDescriptionTextTypeface(value: Int): ToolTipBuilder =
+                apply { this.textDescriptionTypeface = value }
 
-        fun setDescriptionTextSize(@Sp value: Float): ToolTipBuilder = apply { this.textDescriptionSize = value }
+        fun setDescriptionTextSize(@Sp value: Float): ToolTipBuilder =
+                apply { this.textDescriptionSize = value }
 
         fun setCustomLayout(value: Int): ToolTipBuilder = apply { this.customLayout = value }
 

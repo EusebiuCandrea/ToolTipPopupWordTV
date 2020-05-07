@@ -1,16 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimaryDark"
-    android:orientation="vertical">
+    android:background="@drawable/border_dialog"
+    android:backgroundTint="@color/tooltip_background"
+    android:orientation="vertical"
+    android:paddingStart="25dp"
+    android:paddingTop="25dp"
+    android:paddingEnd="25dp">
 
     <TextView
         android:id="@+id/newText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/colorPrimaryDark"
-        android:text="This is my layout" />
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Test" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/newDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/space_10dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@id/testButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/newText"
+        tools:text="Press remove button to delete this word !" />
+
+    <Button
+        android:id="@+id/testButton"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/border_dialog"
+        android:backgroundTint="@color/btn_background"
+        android:text="Remove"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/newDescription" />
+</androidx.constraintlayout.widget.ConstraintLayout>

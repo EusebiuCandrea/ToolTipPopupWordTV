@@ -1,43 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:fillViewport="true">
 
-    <com.ecandrea.library.tooltipopwordtv.wordTextView.SelectableWordTextView
-        android:id="@+id/word"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/space_30dp"
-        android:textColor="@color/colorPrimaryDark"
-        app:highlightBackgroundColor="@color/blue"
-        app:highlightTextColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:setUnderline="true"
-        tools:text="Select a word from this text" />
+        android:layout_height="match_parent"
+        android:background="@color/background_color"
+        tools:context=".MainActivity">
 
+        <FrameLayout
+            android:id="@+id/icon"
+            android:layout_width="165dp"
+            android:layout_height="195dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.075">
 
-    <com.ecandrea.library.tooltipopwordtv.wordTextView.SelectableWordTextView
-        android:id="@+id/wordTwo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="30dp"
-        android:textColor="@color/colorPrimaryDark"
-        app:highlightBackgroundColor="@color/blue"
-        app:highlightTextColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:setUnderline="true"
-        tools:text="Select a word from this text" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/screenshot_2" />
+        </FrameLayout>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/titleDefault"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="40dp"
+            android:text="Default Layout"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintTop_toBottomOf="@id/icon" />
+
+        <com.ecandrea.library.tooltipopwordtv.wordTextView.SelectableWordTextView
+            android:id="@+id/word"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:textColor="@color/colorPrimaryDark"
+            app:highlightBackgroundColor="@color/blue"
+            app:highlightTextColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleDefault"
+            app:setUnderline="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="Custom Layout"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintBottom_toTopOf="@id/wordTwo" />
+
+        <com.ecandrea.library.tooltipopwordtv.wordTextView.SelectableWordTextView
+            android:id="@+id/wordTwo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="40dp"
+            android:textColor="@color/colorPrimaryDark"
+            app:highlightBackgroundColor="@color/blue"
+            app:highlightTextColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/word"
+            app:setUnderline="true" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
