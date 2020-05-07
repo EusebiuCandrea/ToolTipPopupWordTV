@@ -14,7 +14,10 @@
     <LinearLayout
         android:id="@+id/tooltipContent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:focusable="true">
 
         <include
             android:id="@+id/defaultLayout"
