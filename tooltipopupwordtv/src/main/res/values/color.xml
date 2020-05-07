@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <color name="white">#FFFFFF</color>
-    <color name="blue_sky">#03A9F4</color>
+    <color name="arrow">#52A9CF</color>
+    <color name="tooltip_background">#CDDC39</color>
     <color name="gray_dialog">#B9B9B9</color>
     <color name="gray_dark_dialog">#2F3136</color>
-
+    <color name="background_color">#FFFFFF</color>
+    <color name="btn_background">#83C037</color>
 </resources>
