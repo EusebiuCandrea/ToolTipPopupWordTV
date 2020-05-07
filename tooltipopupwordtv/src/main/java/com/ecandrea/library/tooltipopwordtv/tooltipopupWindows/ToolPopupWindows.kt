@@ -61,7 +61,7 @@ class ToolPopupWindows(
             width = (getWidthWindow(context).x * builder.width).toInt()
             height = LinearLayout.LayoutParams.WRAP_CONTENT
             isOutsideTouchable = builder.isOutsideTouchable
-            isTouchable = builder.isOutsideTouchable
+            isTouchable = true
             isFocusable = builder.isOutsideTouchable
             setBackgroundDrawable(BitmapDrawable())
             animationStyle = R.style.DialogScale

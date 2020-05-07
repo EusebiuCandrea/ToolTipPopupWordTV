@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                             .setTitleTextSize(20f)
                             .setIsOutsideTouchable(false)
                             .setArrowCustomizer(ArrowCustomizer.Builder(this@MainActivity)
-                                    .setArrowSize(20)
+                                    .setArrowSize(14)
                                     .build())
                             .build()
 
@@ -53,13 +53,15 @@ class MainActivity : AppCompatActivity() {
                             .setCustomLayout(R.layout.custom_layout)
                             .setIsOutsideTouchable(true)
                             .setWidthPercentsFromScreen(0.7)
+                            .setAutoDismissDuration(2000)
                             .setArrowCustomizer(ArrowCustomizer.Builder(this@MainActivity)
                                     .setArrowColor(ContextCompat.getColor(this@MainActivity, R.color.arrow))
-                                    .setArrowSize(30)
+                                    .setArrowSize(25)
                                     .build())
                             .build()
 
                     initCustomView(toolPopupWindows, wordSelected, anchorView)
+
                     wordTwo.showToolTipWindow(anchorView, wordSelected, lineNumber, width, toolPopupWindows)
                 }
             })
@@ -68,8 +70,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initCustomView(toolPopupWindows: ToolPopupWindows, wordSelected: String, anchorView: TextView) {
-        val viewCustom = toolPopupWindows.getCustomInflatedView()
-        viewCustom?.let {
+        val inflatedView = toolPopupWindows.getCustomInflatedView()
+        inflatedView?.let {
             it.newText.text = wordSelected
             it.newDescription.text = "Press remove button to delete this word !"
             it.testButton.setOnClickListener {
