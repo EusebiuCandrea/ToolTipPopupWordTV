@@ -34,6 +34,23 @@ dependencies {
 	}
 ```
 
+Or Maven:
+
+```xml
+<repositories>
+	<repository>
+	    <id>jitpack.io</id>
+	    <url>https://jitpack.io</url>
+	</repository>
+</repositories>
+
+<dependency>
+	<groupId>com.github.EusebiuCandrea</groupId>
+	<artifactId>ToolTipPopupWordTV</artifactId>
+	<version>1.0.1</version>
+</dependency>
+```
+
 ## Features
 - Selectable word from text;
 - Show PopupWindow based on selected word;
