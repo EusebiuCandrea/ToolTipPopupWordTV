@@ -30,7 +30,7 @@ allprojects {
 And add a dependency code to your **module**'s `build.gradle` file.
 ```gradle
 dependencies {
-	        implementation 'com.github.EusebiuCandrea:ToolTipPopupWordTV:Tag'
+	        implementation 'com.github.EusebiuCandrea:ToolTipPopupWordTV:1.0.1'
 	}
 ```
 
