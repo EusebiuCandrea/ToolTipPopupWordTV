@@ -5,15 +5,14 @@
 </p><br>
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/33927023/81569603-2c956b00-93a8-11ea-8c45-c20af6413a38.gif" width="32%"/>
+<img src="https://raw.githubusercontent.com/EusebiuCandrea/ToolTipPopupWordTV/assets/gifs/default-layout.gif" width="32%"/>
 
-<img src="https://user-images.githubusercontent.com/33927023/81569596-2acba780-93a8-11ea-9365-592fbbf1f5c9.gif" width="32%"/>
+<img src="https://raw.githubusercontent.com/EusebiuCandrea/ToolTipPopupWordTV/assets/gifs/custom_layout.gif" width="32%"/>
 </p>
 
 ## Including in your project
 [![](https://jitpack.io/v/EusebiuCandrea/ToolTipPopupWordTV.svg)](https://jitpack.io/#EusebiuCandrea/ToolTipPopupWordTV)
 <a href="https://android-arsenal.com/api?level=23"><img alt="API" src="https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=flat"/></a>
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ToolTipPopupWordTV-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/8115)
 <a href="https://android-arsenal.com/api?level=23"><img alt="AxdroidX" src="https://img.shields.io/badge/AndroidX-1.0.0-brightgreen.svg?style=flat"/></a>
 <a href="https://github.com/EusebiuCandrea/ToolTipPopupWordTV/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
 </p>
