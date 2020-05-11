@@ -5,9 +5,9 @@
 </p><br>
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/33927023/81274220-aa7c0e00-9058-11ea-9ac7-e79eff5a6617.png" width="32%"/>
+<img src="https://user-images.githubusercontent.com/33927023/81569603-2c956b00-93a8-11ea-8c45-c20af6413a38.gif" width="32%"/>
 
-<img src="https://user-images.githubusercontent.com/33927023/81274221-abad3b00-9058-11ea-93bc-628afad626f3.png" width="32%"/>
+<img src="https://user-images.githubusercontent.com/33927023/81569596-2acba780-93a8-11ea-9365-592fbbf1f5c9.gif" width="32%"/>
 </p>
 
 ## Including in your project
@@ -30,25 +30,8 @@ allprojects {
 And add a dependency code to your **module**'s `build.gradle` file.
 ```gradle
 dependencies {
-	        implementation 'com.github.EusebiuCandrea:ToolTipPopupWordTV:1.0.1'
+	        implementation 'com.github.EusebiuCandrea:ToolTipPopupWordTV:Tag'
 	}
-```
-
-Or Maven:
-
-```xml
-<repositories>
-	<repository>
-	    <id>jitpack.io</id>
-	    <url>https://jitpack.io</url>
-	</repository>
-</repositories>
-
-<dependency>
-	<groupId>com.github.EusebiuCandrea</groupId>
-	<artifactId>ToolTipPopupWordTV</artifactId>
-	<version>1.0.1</version>
-</dependency>
 ```
 
 ## Features
