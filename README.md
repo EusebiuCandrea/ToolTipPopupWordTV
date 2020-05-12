@@ -23,6 +23,7 @@ alt="IMAGE ALT TEXT HERE" width="150" height="100" /></a>
 <a href="https://github.com/EusebiuCandrea/ToolTipPopupWordTV/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
 </p>
 
+
 ### Gradle 
 Add below codes to your **root** `build.gradle` file.
 ```gradle
