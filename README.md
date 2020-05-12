@@ -8,14 +8,12 @@
 
 <img src="https://raw.githubusercontent.com/EusebiuCandrea/ToolTipPopupWordTV/assets/gifs/custom_layout.gif" width="32%"/>
 </p>
-<br>
+</br>
 
 ## Demo
-<p >
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=YOUTUBE_VIDEO_ID_HERE
-" target="_blank"><img src="https://img.youtube.com/vi/HiTQdT-ip24/1.jpg" 
-alt="IMAGE ALT TEXT HERE" width="50" height="50" border="10" /></a> 
-</p>
+<a href="https://www.youtube.com/watch?v=HiTQdT-ip24" 
+target="_blank"><img src="https://img.youtube.com/vi/HiTQdT-ip24/1.jpg" 
+alt="IMAGE ALT TEXT HERE" width="150" height="100" /></a> 
 
 ## Including in your project
 [![](https://jitpack.io/v/EusebiuCandrea/ToolTipPopupWordTV.svg)](https://jitpack.io/#EusebiuCandrea/ToolTipPopupWordTV)
