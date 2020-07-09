@@ -6,10 +6,7 @@ import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Handler
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.WindowManager
+import android.view.*
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
@@ -34,10 +31,12 @@ import kotlinx.android.synthetic.main.dialog_tooltip.view.*
 class ToolPopupWindows(
         private val context: Context,
         private val builder: ToolTipBuilder
-) {
+) : ViewTreeObserver.OnGlobalLayoutListener {
     private val tipWindow: PopupWindow = PopupWindow(context)
+    private lateinit var anchorRect: Rect
     private lateinit var contentView: View
     private lateinit var parent: SelectableWordTextView
+    private var heightOfLines = 0
 
     init {
         initToolTip()
@@ -52,9 +51,21 @@ class ToolPopupWindows(
         }
     }
 
+    override fun onGlobalLayout() {
+        val containerHeight = contentView.tooltipContainer.height
+        val screenHeight = context.resources.configuration.screenHeightDp.px - 50
+
+        if (anchorRect.top + containerHeight > screenHeight) {
+            contentView.arrowAnchor.hide()
+            contentView.arrowAnchorBottom.show()
+            contentView.arrowAnchorBottom.layoutParams = contentView.arrowAnchor.layoutParams
+
+            tipWindow.update(0, anchorRect.top - containerHeight + heightOfLines - space, contentView.tooltipContainer.width, containerHeight)
+        }
+    }
+
     private fun initToolTip() {
-        val inflater: LayoutInflater =
-                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         contentView = inflater.inflate(R.layout.dialog_tooltip, null)
 
         with(tipWindow) {
@@ -67,8 +78,8 @@ class ToolPopupWindows(
             animationStyle = R.style.DialogScale
             windowLayoutType = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG
         }
-
         tipWindow.contentView = contentView
+        contentView.tooltipContainer.viewTreeObserver.addOnGlobalLayoutListener(this@ToolPopupWindows)
     }
 
     private fun initToolTipCustomizations() {
@@ -101,6 +112,7 @@ class ToolPopupWindows(
                 applyArrowCustomizer(it)
             }
         }
+
     }
 
     private fun initCustomLayout() {
@@ -144,13 +156,13 @@ class ToolPopupWindows(
     ) {
         this.parent = anchorView as SelectableWordTextView
         val location = getLocationOnScreen(anchorView, context)
-        val anchorRect = Rect(
+        anchorRect = Rect(
                 location.x, location.y,
                 location.x + anchorView.width,
                 location.y + anchorView.height
         )
-        val heightOfLine = anchorView.lineHeight - space
-        val positionY = anchorRect.top + (lineNumber * heightOfLine)
+        heightOfLines = (anchorView.lineHeight - space) * lineNumber
+        val positionY = anchorRect.top + heightOfLines
 
         val arrowParams = contentView.arrowAnchor.layoutParams as LinearLayout.LayoutParams
         val differenceOfWidth = (getWidthWindow(context).x - tipWindow.width) / 2
@@ -168,6 +180,7 @@ class ToolPopupWindows(
         if (tipWindow.isShowing) {
             dismissSelected()
             tipWindow.dismiss()
+            contentView.tooltipContainer.viewTreeObserver.removeOnGlobalLayoutListener(this)
         }
     }
 
