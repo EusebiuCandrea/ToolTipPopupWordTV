@@ -13,6 +13,7 @@ import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.UnderlineSpan
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorInt
@@ -87,8 +88,13 @@ class SelectableWordTextView(context: Context?, attrs: AttributeSet?) : AppCompa
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
-        spannableString?.setSpan(selectedBackSpan, tv.selectionStart, tv.selectionEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        spannableString?.setSpan(selectedForeSpan, tv.selectionStart, tv.selectionEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        try {
+            spannableString?.setSpan(selectedBackSpan, tv.selectionStart, tv.selectionEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spannableString?.setSpan(selectedForeSpan, tv.selectionStart, tv.selectionEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        } catch (e: IndexOutOfBoundsException ) {
+            Log.e("SelectedSpan ", e.localizedMessage);
+        }
+
         super@SelectableWordTextView.setText(spannableString, bufferType)
     }
 
@@ -148,7 +154,7 @@ class SelectableWordTextView(context: Context?, attrs: AttributeSet?) : AppCompa
     }
 
     /**
-     * Used for customization
+     * Used for customizations
      */
     fun setToolTipListener(listener: SelectableWordListeners) {
         this.selectableWordListener = listener
