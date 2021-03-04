@@ -1,11 +1,11 @@
-package com.ecandrea.library.tooltipopwordtv
+package com.boyzdroizy.library.tooltipopwordtv
 
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.core.content.ContextCompat
-import com.ecandrea.library.tooltipopwordtv.utils.TooltipPopupConstants
+import com.boyzdroizy.library.tooltipopwordtv.utils.TooltipPopupConstants
 
 internal fun View.show() {
     this.visibility = View.VISIBLE

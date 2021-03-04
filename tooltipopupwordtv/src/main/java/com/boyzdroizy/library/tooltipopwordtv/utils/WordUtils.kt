@@ -1,11 +1,12 @@
-package com.ecandrea.library.tooltipopwordtv.utils
+package com.boyzdroizy.library.tooltipopwordtv.utils
 
-import com.ecandrea.library.tooltipopwordtv.model.WordInfo
+import com.boyzdroizy.library.tooltipopwordtv.model.WordInfo
 import java.util.*
 
 internal object WordUtils {
 
-    private val punctuations: List<Char>? = listOf(',', '.', ';', '!', '"', '，', '。', '！', '；', '、', '：', '“', '”', '?', '？')
+    private val punctuations: List<Char>? =
+        listOf(',', '.', ';', '!', '"', '，', '。', '！', '；', '、', '：', '“', '”', '?', '？')
 
     private fun createWordInfoList(separatorIndices: MutableList<Int>): MutableList<WordInfo> {
         val wordInfoList: MutableList<WordInfo> = ArrayList()
@@ -41,16 +42,16 @@ internal object WordUtils {
 
     fun getWordIndices(content: String): List<WordInfo> {
         val separatorIndices =
-                getSeparatorIndices(
-                        content,
-                        ' '
-                )
+            getSeparatorIndices(
+                content,
+                ' '
+            )
         for (punctuation in punctuations!!) {
             separatorIndices.addAll(
-                    getSeparatorIndices(
-                            content,
-                            punctuation
-                    )
+                getSeparatorIndices(
+                    content,
+                    punctuation
+                )
             )
         }
         separatorIndices.sort()

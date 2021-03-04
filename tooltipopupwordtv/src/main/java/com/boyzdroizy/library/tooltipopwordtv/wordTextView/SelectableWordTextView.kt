@@ -1,4 +1,4 @@
-package com.ecandrea.library.tooltipopwordtv.wordTextView
+package com.boyzdroizy.library.tooltipopwordtv.wordTextView
 
 import android.content.Context
 import android.graphics.Color
@@ -18,13 +18,14 @@ import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatTextView
-import com.ecandrea.library.tooltipopwordtv.R
-import com.ecandrea.library.tooltipopwordtv.listeners.SelectableWordListeners
-import com.ecandrea.library.tooltipopwordtv.tooltipopupWindows.ToolPopupWindows
-import com.ecandrea.library.tooltipopwordtv.utils.WordUtils
+import com.boyzdroizy.library.tooltipopwordtv.R
+import com.boyzdroizy.library.tooltipopwordtv.listeners.SelectableWordListeners
+import com.boyzdroizy.library.tooltipopwordtv.tooltipopupWindows.ToolPopupWindows
+import com.boyzdroizy.library.tooltipopwordtv.utils.WordUtils
 
 
-class SelectableWordTextView(context: Context?, attrs: AttributeSet?) : AppCompatTextView(context!!, attrs) {
+class SelectableWordTextView(context: Context?, attrs: AttributeSet?) :
+    AppCompatTextView(context!!, attrs) {
 
     private lateinit var tooltip: ToolPopupWindows
     private lateinit var selectableWordListener: SelectableWordListeners
@@ -43,7 +44,10 @@ class SelectableWordTextView(context: Context?, attrs: AttributeSet?) : AppCompa
     init {
         context!!.obtainStyledAttributes(attrs, R.styleable.SelectableWordTextView).apply {
             setUnderlineSpan = getBoolean(R.styleable.SelectableWordTextView_setUnderline, false)
-            backgroundWord = getColor(R.styleable.SelectableWordTextView_highlightBackgroundColor, Color.TRANSPARENT)
+            backgroundWord = getColor(
+                R.styleable.SelectableWordTextView_highlightBackgroundColor,
+                Color.TRANSPARENT
+            )
             wordColor = getColor(R.styleable.SelectableWordTextView_highlightTextColor, Color.RED)
         }.also {
             it.recycle()
@@ -62,10 +66,10 @@ class SelectableWordTextView(context: Context?, attrs: AttributeSet?) : AppCompa
         spannableString = SpannableString(charSequence)
         WordUtils.getWordIndices(charSequence.toString()).forEach { wordInfo ->
             spannableString?.setSpan(
-                    clickableSpan,
-                    wordInfo.start,
-                    wordInfo.end,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                clickableSpan,
+                wordInfo.start,
+                wordInfo.end,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
             )
         }
         super.setText(spannableString, bufferType)
@@ -82,17 +86,27 @@ class SelectableWordTextView(context: Context?, attrs: AttributeSet?) : AppCompa
             spannableString?.removeSpan(selectedForeSpan)
         }
         spannableString?.setSpan(
-                underlineSpan,
-                tv.selectionStart,
-                tv.selectionEnd,
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            underlineSpan,
+            tv.selectionStart,
+            tv.selectionEnd,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
         try {
-            spannableString?.setSpan(selectedBackSpan, tv.selectionStart, tv.selectionEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            spannableString?.setSpan(selectedForeSpan, tv.selectionStart, tv.selectionEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        } catch (e: IndexOutOfBoundsException ) {
-            Log.e("SelectedSpan ", e.localizedMessage);
+            spannableString?.setSpan(
+                selectedBackSpan,
+                tv.selectionStart,
+                tv.selectionEnd,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            spannableString?.setSpan(
+                selectedForeSpan,
+                tv.selectionStart,
+                tv.selectionEnd,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        } catch (e: IndexOutOfBoundsException) {
+            Log.e("SelectedSpan ", e.localizedMessage)
         }
 
         super@SelectableWordTextView.setText(spannableString, bufferType)
@@ -138,10 +152,10 @@ class SelectableWordTextView(context: Context?, attrs: AttributeSet?) : AppCompa
         }
 
     private fun getWordLeftSize(
-            textView: TextView,
-            word: String,
-            lineNumber: Int,
-            startIndex: Int
+        textView: TextView,
+        word: String,
+        lineNumber: Int,
+        startIndex: Int
     ): Int {
         val textFound = textView.layout.getLineStart(lineNumber)
         val substring = textView.text.toString().substring(textFound, startIndex)
@@ -161,11 +175,11 @@ class SelectableWordTextView(context: Context?, attrs: AttributeSet?) : AppCompa
     }
 
     fun showToolTipWindow(
-            anchorView: TextView,
-            wordSelected: String,
-            lineNumber: Int,
-            width: Int,
-            toolPopupWindows: ToolPopupWindows
+        anchorView: TextView,
+        wordSelected: String,
+        lineNumber: Int,
+        width: Int,
+        toolPopupWindows: ToolPopupWindows
     ) {
         tooltip = toolPopupWindows
         tooltip.showToolTipAtLocation(anchorView, wordSelected, lineNumber, width)

@@ -1,4 +1,4 @@
-package com.ecandrea.library.tooltipopwordtv
+package com.boyzdroizy.library.tooltipopwordtv
 
 import org.junit.Test
 

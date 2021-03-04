@@ -1,4 +1,4 @@
-package com.ecandrea.library.tooltipopwordtv.listeners
+package com.boyzdroizy.library.tooltipopwordtv.listeners
 
 import android.widget.TextView
 
