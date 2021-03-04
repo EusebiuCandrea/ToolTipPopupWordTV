@@ -1,22 +1,26 @@
-package com.ecandrea.library.tooltipopwordtv.utils
+package com.boyzdroizy.library.tooltipopwordtv.utils
 
 import android.content.res.ColorStateList
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.widget.ImageViewCompat
-import com.ecandrea.library.tooltipopwordtv.isValueSet
-import com.ecandrea.library.tooltipopwordtv.isVisible
-import com.ecandrea.library.tooltipopwordtv.tooltipopupWindows.ArrowCustomizer
-import com.ecandrea.library.tooltipopwordtv.tooltipopupWindows.ToolPopupWindows
+import com.boyzdroizy.library.tooltipopwordtv.isValueSet
+import com.boyzdroizy.library.tooltipopwordtv.isVisible
+import com.boyzdroizy.library.tooltipopwordtv.tooltipopupWindows.ArrowCustomised
+import com.boyzdroizy.library.tooltipopwordtv.tooltipopupWindows.ToolPopupWindows
 
-internal fun AppCompatImageView.applyArrowCustomizer(arrowCustomizer: ArrowCustomizer) {
+internal fun AppCompatImageView.applyArrowCustomizer(arrowCustomizer: ArrowCustomised) {
     arrowCustomizer.arrowDrawable?.let {
         setImageDrawable(it)
     }
 
-    if (arrowCustomizer.arrowColor.isValueSet()) ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(arrowCustomizer.arrowColor))
-    if (arrowCustomizer.arrowSize.isValueSet()) layoutParams = LinearLayout.LayoutParams(arrowCustomizer.arrowSize, arrowCustomizer.arrowSize)
+    if (arrowCustomizer.arrowColor.isValueSet()) ImageViewCompat.setImageTintList(
+        this,
+        ColorStateList.valueOf(arrowCustomizer.arrowColor)
+    )
+    if (arrowCustomizer.arrowSize.isValueSet()) layoutParams =
+        LinearLayout.LayoutParams(arrowCustomizer.arrowSize, arrowCustomizer.arrowSize)
     isVisible(arrowCustomizer.arrowVisibility)
 }
 
@@ -27,7 +31,8 @@ internal fun TextView.applyTextCustomizer(textCustomizer: ToolPopupWindows.ToolT
 }
 
 internal fun TextView.applyDescriptionCustomizer(textCustomizer: ToolPopupWindows.ToolTipBuilder) {
-    if (textCustomizer.textDescriptionSize.isValueSet()) textSize = textCustomizer.textDescriptionSize
+    if (textCustomizer.textDescriptionSize.isValueSet()) textSize =
+        textCustomizer.textDescriptionSize
     if (textCustomizer.textDescriptionColor.isValueSet()) setTextColor(textCustomizer.textDescriptionColor)
     setTypeface(typeface, textCustomizer.textDescriptionTypeface)
 }

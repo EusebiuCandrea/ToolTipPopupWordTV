@@ -1,4 +1,4 @@
-package com.ecandrea.library.tooltipopwordtv.tooltipopupWindows
+package com.boyzdroizy.library.tooltipopwordtv.tooltipopupWindows
 
 import android.content.Context
 import android.graphics.Rect
@@ -14,23 +14,23 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.DrawableCompat
-import com.ecandrea.library.tooltipopwordtv.*
-import com.ecandrea.library.tooltipopwordtv.annotations.Sp
-import com.ecandrea.library.tooltipopwordtv.listeners.ToolTipListeners
-import com.ecandrea.library.tooltipopwordtv.utils.ScreenSizeUtils.getLocationOnScreen
-import com.ecandrea.library.tooltipopwordtv.utils.ScreenSizeUtils.getWidthWindow
-import com.ecandrea.library.tooltipopwordtv.utils.TooltipPopupConstants.DEFAULT_DESCRIPTION
-import com.ecandrea.library.tooltipopwordtv.utils.TooltipPopupConstants.NO_INT_VALUE
-import com.ecandrea.library.tooltipopwordtv.utils.applyArrowCustomizer
-import com.ecandrea.library.tooltipopwordtv.utils.applyDescriptionCustomizer
-import com.ecandrea.library.tooltipopwordtv.utils.applyTextCustomizer
-import com.ecandrea.library.tooltipopwordtv.wordTextView.SelectableWordTextView
+import com.boyzdroizy.library.tooltipopwordtv.*
+import com.boyzdroizy.library.tooltipopwordtv.annotations.Sp
+import com.boyzdroizy.library.tooltipopwordtv.listeners.ToolTipListeners
+import com.boyzdroizy.library.tooltipopwordtv.utils.ScreenSizeUtils.getLocationOnScreen
+import com.boyzdroizy.library.tooltipopwordtv.utils.ScreenSizeUtils.getWidthWindow
+import com.boyzdroizy.library.tooltipopwordtv.utils.TooltipPopupConstants.DEFAULT_DESCRIPTION
+import com.boyzdroizy.library.tooltipopwordtv.utils.TooltipPopupConstants.NO_INT_VALUE
+import com.boyzdroizy.library.tooltipopwordtv.utils.applyArrowCustomizer
+import com.boyzdroizy.library.tooltipopwordtv.utils.applyDescriptionCustomizer
+import com.boyzdroizy.library.tooltipopwordtv.utils.applyTextCustomizer
+import com.boyzdroizy.library.tooltipopwordtv.wordTextView.SelectableWordTextView
 import kotlinx.android.synthetic.main.default_tooltip_layout.view.*
 import kotlinx.android.synthetic.main.dialog_tooltip.view.*
 
 class ToolPopupWindows(
-        private val context: Context,
-        private val builder: ToolTipBuilder
+    private val context: Context,
+    private val builder: ToolTipBuilder
 ) : ViewTreeObserver.OnGlobalLayoutListener {
     private val tipWindow: PopupWindow = PopupWindow(context)
     private lateinit var anchorRect: Rect
@@ -60,12 +60,18 @@ class ToolPopupWindows(
             contentView.arrowAnchorBottom.show()
             contentView.arrowAnchorBottom.layoutParams = contentView.arrowAnchor.layoutParams
 
-            tipWindow.update(0, anchorRect.top - containerHeight + heightOfLines - space, contentView.tooltipContainer.width, containerHeight)
+            tipWindow.update(
+                0,
+                anchorRect.top - containerHeight + heightOfLines - space,
+                contentView.tooltipContainer.width,
+                containerHeight
+            )
         }
     }
 
     private fun initToolTip() {
-        val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater: LayoutInflater =
+            context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         contentView = inflater.inflate(R.layout.dialog_tooltip, null)
 
         with(tipWindow) {
@@ -108,7 +114,7 @@ class ToolPopupWindows(
 
     private fun initializeArrowAnchor() {
         with(contentView.arrowAnchor) {
-            builder.arrowCustomizer?.let {
+            builder.arrowCustomised?.let {
                 applyArrowCustomizer(it)
             }
         }
@@ -120,8 +126,8 @@ class ToolPopupWindows(
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val viewInflated = inflater.inflate(builder.customLayout, null)
         viewInflated.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
         )
         contentView.tooltipContent.addView(viewInflated)
     }
@@ -149,17 +155,17 @@ class ToolPopupWindows(
     private fun dismissSelected() = parent.dismissSelected()
 
     fun showToolTipAtLocation(
-            anchorView: TextView,
-            wordSelected: String,
-            lineNumber: Int,
-            width: Int
+        anchorView: TextView,
+        wordSelected: String,
+        lineNumber: Int,
+        width: Int
     ) {
         this.parent = anchorView as SelectableWordTextView
         val location = getLocationOnScreen(anchorView, context)
         anchorRect = Rect(
-                location.x, location.y,
-                location.x + anchorView.width,
-                location.y + anchorView.height
+            location.x, location.y,
+            location.x + anchorView.width,
+            location.y + anchorView.height
         )
         heightOfLines = (anchorView.lineHeight - space) * lineNumber
         val positionY = anchorRect.top + heightOfLines
@@ -205,22 +211,22 @@ class ToolPopupWindows(
         var toolTipDescription: String = DEFAULT_DESCRIPTION
         var autoDismissDuration: Long = NO_INT_VALUE.toLong()
         var toolTipListeners: ToolTipListeners? = null
-        var arrowCustomizer: ArrowCustomizer? = null
+        var arrowCustomised: ArrowCustomised? = null
 
         fun setWidthPercentsFromScreen(value: Double): ToolTipBuilder = apply { this.width = value }
 
         fun setTitleTextColor(@ColorInt value: Int): ToolTipBuilder =
-                apply { this.textTitleColor = value }
+            apply { this.textTitleColor = value }
 
         fun setTitleTextColorResource(@ColorRes value: Int): ToolTipBuilder = apply {
             this.textTitleColor = context.contextColor(value)
         }
 
         fun setTitleTextTypeface(value: Int): ToolTipBuilder =
-                apply { this.textTitleTypeface = value }
+            apply { this.textTitleTypeface = value }
 
         fun setTitleTextSize(@Sp value: Float): ToolTipBuilder =
-                apply { this.textTitleSize = value }
+            apply { this.textTitleSize = value }
 
         fun setBackgroundColor(value: Int): ToolTipBuilder = apply { this.backgroundColor = value }
 
@@ -229,30 +235,30 @@ class ToolPopupWindows(
         }
 
         fun setDescriptionTextColor(@ColorInt value: Int): ToolTipBuilder =
-                apply { this.textDescriptionColor = value }
+            apply { this.textDescriptionColor = value }
 
         fun setDescriptionTextColorResource(@ColorRes value: Int): ToolTipBuilder = apply {
             this.textTitleColor = context.contextColor(value)
         }
 
         fun setDescriptionTextTypeface(value: Int): ToolTipBuilder =
-                apply { this.textDescriptionTypeface = value }
+            apply { this.textDescriptionTypeface = value }
 
         fun setDescriptionTextSize(@Sp value: Float): ToolTipBuilder =
-                apply { this.textDescriptionSize = value }
+            apply { this.textDescriptionSize = value }
 
         fun setCustomLayout(value: Int): ToolTipBuilder = apply { this.customLayout = value }
 
         fun setAutoDismissDuration(value: Long): ToolTipBuilder =
-                apply { this.autoDismissDuration = value }
+            apply { this.autoDismissDuration = value }
 
         fun setIsOutsideTouchable(value: Boolean): ToolTipBuilder =
-                apply { this.isOutsideTouchable = value }
+            apply { this.isOutsideTouchable = value }
 
         fun setToolTipListener(listener: ToolTipListeners): ToolTipBuilder =
-                apply {
-                    this.toolTipListeners = listener
-                }
+            apply {
+                this.toolTipListeners = listener
+            }
 
         fun setToolTipDescription(value: String): ToolTipBuilder = apply {
             this.toolTipDescription = value
@@ -262,8 +268,8 @@ class ToolPopupWindows(
             this.textTitle = value
         }
 
-        fun setArrowCustomizer(value: ArrowCustomizer): ToolTipBuilder =
-                apply { this.arrowCustomizer = value }
+        fun setArrowCustomizer(value: ArrowCustomised): ToolTipBuilder =
+            apply { this.arrowCustomised = value }
 
         fun setToolTipListener(unit: () -> Unit): ToolTipBuilder = apply {
             this.toolTipListeners = object : ToolTipListeners {
@@ -278,7 +284,7 @@ class ToolPopupWindows(
         }
 
         fun build(): ToolPopupWindows =
-                ToolPopupWindows(context = context, builder = this@ToolTipBuilder)
+            ToolPopupWindows(context = context, builder = this@ToolTipBuilder)
     }
 
     companion object {

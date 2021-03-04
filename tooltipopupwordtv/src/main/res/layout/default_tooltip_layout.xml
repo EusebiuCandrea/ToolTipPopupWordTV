@@ -31,11 +31,11 @@
             android:layout_height="@dimen/space_20dp"
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/space_12dp"
-            android:tint="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/title"
-            app:srcCompat="@drawable/icon_close" />
+            app:srcCompat="@drawable/icon_close"
+            app:tint="@color/white" />
 
         <TextView
             android:id="@+id/description"

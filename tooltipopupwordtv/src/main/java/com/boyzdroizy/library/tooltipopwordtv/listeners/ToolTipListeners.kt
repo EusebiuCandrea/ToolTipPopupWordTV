@@ -1,4 +1,4 @@
-package com.ecandrea.library.tooltipopwordtv.listeners
+package com.boyzdroizy.library.tooltipopwordtv.listeners
 
 interface ToolTipListeners {
     fun onCloseToolTip()

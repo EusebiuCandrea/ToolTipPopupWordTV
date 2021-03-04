@@ -1,4 +1,4 @@
-package com.ecandrea.library.tooltipopwordtv
+package com.boyzdroizy.library.tooltipopwordtv
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

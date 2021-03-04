@@ -1,4 +1,4 @@
-package com.ecandrea.library.tooltipopwordtv.utils
+package com.boyzdroizy.library.tooltipopwordtv.utils
 
 import android.content.Context
 import android.graphics.Point
