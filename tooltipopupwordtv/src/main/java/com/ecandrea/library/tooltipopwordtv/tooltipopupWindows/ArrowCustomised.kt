@@ -11,7 +11,7 @@ import com.ecandrea.library.tooltipopwordtv.px
 import com.ecandrea.library.tooltipopwordtv.utils.TooltipPopupConstants
 
 
-class ArrowCustomizer(builder: Builder) {
+class ArrowCustomised(builder: Builder) {
 
     val arrowDrawable = builder.arrowDrawable
     val arrowSize = builder.arrowSize
@@ -43,6 +43,6 @@ class ArrowCustomizer(builder: Builder) {
             this.arrowVisibility = isVisible
         }
 
-        fun build() = ArrowCustomizer(this)
+        fun build() = ArrowCustomised(this)
     }
 }

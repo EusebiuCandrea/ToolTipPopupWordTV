@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.ecandrea.library.tooltipopwordtv.listeners.SelectableWordListeners
-import com.ecandrea.library.tooltipopwordtv.tooltipopupWindows.ArrowCustomizer
+import com.ecandrea.library.tooltipopwordtv.tooltipopupWindows.ArrowCustomised
 import com.ecandrea.library.tooltipopwordtv.tooltipopupWindows.ToolPopupWindows
 import com.ecandrea.library.tooltipopwordtv.wordTextView.SelectableWordTextView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
                             .setTitleTextColor(ContextCompat.getColor(this@MainActivity, R.color.colorAccent))
                             .setTitleTextSize(20f)
                             .setIsOutsideTouchable(false)
-                            .setArrowCustomizer(ArrowCustomizer.Builder(this@MainActivity)
+                            .setArrowCustomizer(ArrowCustomised.Builder(this@MainActivity)
                                     .setArrowSize(14)
                                     .build())
                             .build()
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                             .setIsOutsideTouchable(true)
                             .setWidthPercentsFromScreen(0.7)
                             .setAutoDismissDuration(2000)
-                            .setArrowCustomizer(ArrowCustomizer.Builder(this@MainActivity)
+                            .setArrowCustomizer(ArrowCustomised.Builder(this@MainActivity)
                                     .setArrowColor(ContextCompat.getColor(this@MainActivity, R.color.arrow))
                                     .setArrowSize(25)
                                     .build())

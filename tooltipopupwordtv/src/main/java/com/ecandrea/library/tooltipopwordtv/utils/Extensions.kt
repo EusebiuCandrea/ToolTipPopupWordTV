@@ -1,17 +1,10 @@
 package com.ecandrea.library.tooltipopwordtv
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.view.View
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
-import androidx.core.widget.ImageViewCompat
-import com.ecandrea.library.tooltipopwordtv.tooltipopupWindows.ArrowCustomizer
-import com.ecandrea.library.tooltipopwordtv.tooltipopupWindows.ToolPopupWindows
 import com.ecandrea.library.tooltipopwordtv.utils.TooltipPopupConstants
 
 internal fun View.show() {

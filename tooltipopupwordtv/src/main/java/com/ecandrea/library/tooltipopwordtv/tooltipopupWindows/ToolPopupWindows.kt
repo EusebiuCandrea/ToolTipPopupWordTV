@@ -108,7 +108,7 @@ class ToolPopupWindows(
 
     private fun initializeArrowAnchor() {
         with(contentView.arrowAnchor) {
-            builder.arrowCustomizer?.let {
+            builder.arrowCustomised?.let {
                 applyArrowCustomizer(it)
             }
         }
@@ -205,7 +205,7 @@ class ToolPopupWindows(
         var toolTipDescription: String = DEFAULT_DESCRIPTION
         var autoDismissDuration: Long = NO_INT_VALUE.toLong()
         var toolTipListeners: ToolTipListeners? = null
-        var arrowCustomizer: ArrowCustomizer? = null
+        var arrowCustomised: ArrowCustomised? = null
 
         fun setWidthPercentsFromScreen(value: Double): ToolTipBuilder = apply { this.width = value }
 
@@ -262,8 +262,8 @@ class ToolPopupWindows(
             this.textTitle = value
         }
 
-        fun setArrowCustomizer(value: ArrowCustomizer): ToolTipBuilder =
-                apply { this.arrowCustomizer = value }
+        fun setArrowCustomizer(value: ArrowCustomised): ToolTipBuilder =
+                apply { this.arrowCustomised = value }
 
         fun setToolTipListener(unit: () -> Unit): ToolTipBuilder = apply {
             this.toolTipListeners = object : ToolTipListeners {

@@ -24,7 +24,7 @@ import com.ecandrea.library.tooltipopwordtv.tooltipopupWindows.ToolPopupWindows
 import com.ecandrea.library.tooltipopwordtv.utils.WordUtils
 
 
-class SelectableWordTextView(context: Context?, attrs: AttributeSet?) : AppCompatTextView(context, attrs) {
+class SelectableWordTextView(context: Context?, attrs: AttributeSet?) : AppCompatTextView(context!!, attrs) {
 
     private lateinit var tooltip: ToolPopupWindows
     private lateinit var selectableWordListener: SelectableWordListeners

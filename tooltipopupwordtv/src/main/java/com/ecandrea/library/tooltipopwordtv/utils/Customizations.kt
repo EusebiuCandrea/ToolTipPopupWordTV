@@ -7,10 +7,10 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.widget.ImageViewCompat
 import com.ecandrea.library.tooltipopwordtv.isValueSet
 import com.ecandrea.library.tooltipopwordtv.isVisible
-import com.ecandrea.library.tooltipopwordtv.tooltipopupWindows.ArrowCustomizer
+import com.ecandrea.library.tooltipopwordtv.tooltipopupWindows.ArrowCustomised
 import com.ecandrea.library.tooltipopwordtv.tooltipopupWindows.ToolPopupWindows
 
-internal fun AppCompatImageView.applyArrowCustomizer(arrowCustomizer: ArrowCustomizer) {
+internal fun AppCompatImageView.applyArrowCustomizer(arrowCustomizer: ArrowCustomised) {
     arrowCustomizer.arrowDrawable?.let {
         setImageDrawable(it)
     }
